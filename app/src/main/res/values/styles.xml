@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="android:windowBackground">@color/colorSecondary</item>
+        <item name="materialCardViewStyle">@style/MyCardStyle</item>
+    </style>
+
+    <style name="MyCardStyle" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@android:color/white</item>
     </style>
 
 </resources>
