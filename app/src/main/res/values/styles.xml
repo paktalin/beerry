@@ -2,16 +2,19 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="android:windowBackground">@color/colorSecondary</item>
+        <!--<item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>-->
+        <item name="android:windowBackground">@color/colorBackground</item>
         <item name="materialCardViewStyle">@style/MyCardStyle</item>
+
     </style>
 
     <style name="MyCardStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">@android:color/white</item>
+        <item name="cardCornerRadius">10dp</item>
     </style>
 
 </resources>

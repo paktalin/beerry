@@ -24,6 +24,9 @@ class BeerAdapter(
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val beer = beers[position]
         holder.tvName.text = beer.name
-        Picasso.with(context).load(beer.imageUrl).into(holder.image)
+        Picasso
+            .with(context)
+            .load(beer.imageUrl)
+            .into(holder.image)
     }
 }
