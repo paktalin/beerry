@@ -15,7 +15,7 @@ import org.json.JSONArray
 
 class AllFragment : Fragment() {
 
-    var beers = mutableListOf<Beer>()
+    private var beers = mutableListOf<Beer>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

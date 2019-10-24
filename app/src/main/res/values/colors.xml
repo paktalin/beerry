@@ -3,6 +3,36 @@
     <color name="colorPrimary">#ffa000</color>
     <color name="colorPrimaryDark">#c67100</color>
     <color name="colorBackground">#263238</color>
-    <color name="colorPrimaryTransparent">#80ffa000</color>
     <color name="whiteSemitransparent">#80ffffff</color>
+
+    <array name="ebc_colors">
+        <!--ebc 4-->
+        <item>#FFD878</item>
+        <!--ebc 6-->
+        <item>#FFCA5A</item>
+        <!--ebc 8-->
+        <item>#FFBF42</item>
+        <!--ebc 12-->
+        <item>#F8A600</item>
+        <!--ebc 16-->
+        <item>#EA8F00</item>
+        <!--ebc 20-->
+        <item>#DE7C00</item>
+        <!--ebc 26-->
+        <item>#CB6200</item>
+        <!--ebc 33-->
+        <item>#B04500</item>
+        <!--ebc 39-->
+        <item>#9B3200</item>
+        <!--ebc 47-->
+        <item>#821E00</item>
+        <!--ebc 57-->
+        <item>#660D00</item>
+        <!--ebc 69-->
+        <item>#470606</item>
+        <!--ebc 79-->
+        <item>#36080A</item>
+    </array>
+
 </resources>
+
