@@ -6,12 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.android.volley.toolbox.JsonArrayRequest
 import com.paktalin.beerapp.Beer
+import com.paktalin.beerapp.BeerLoader
 import com.paktalin.beerapp.R
-import com.paktalin.beerapp.server.BackendVolley
 import kotlinx.android.synthetic.main.fragment_all.view.*
-import org.json.JSONArray
 
 class AllFragment : Fragment() {
 
@@ -19,7 +17,10 @@ class AllFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        loadBeers()
+        BeerLoader().loadBeers { beers ->
+            this.beers.addAll(0, beers)
+            view?.recycler_view_all?.adapter?.notifyDataSetChanged()
+        }
     }
 
     override fun onCreateView(
@@ -33,25 +34,5 @@ class AllFragment : Fragment() {
             adapter = context?.let { BeerAdapter(beers, it) }
         }
         return root
-    }
-
-    private fun loadBeers() {
-        val url = "https://api.punkapi.com/v2/beers"
-        val request = JsonArrayRequest(url,
-            { processResponse(it) },
-            {
-                val data = BackendVolley.instance?.cache()?.get(url)?.data
-                data?.let { processResponse(JSONArray(String(data))) }
-            }
-        )
-        BackendVolley.instance?.addToRequestQueue(request, url)
-    }
-
-    private fun processResponse(jsonArray: JSONArray) {
-        for (i in 0 until jsonArray.length()) {
-            val beer = Beer(jsonArray.getJSONObject(i))
-            beers.add(beer)
-        }
-        view?.recycler_view_all?.adapter?.notifyDataSetChanged()
     }
 }
