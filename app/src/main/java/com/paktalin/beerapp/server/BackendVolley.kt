@@ -1,8 +1,7 @@
 package com.paktalin.beerapp.server
 
 import android.app.Application
-import com.android.volley.Request
-import com.android.volley.RequestQueue
+import com.android.volley.*
 import com.android.volley.toolbox.Volley
 
 class BackendVolley : Application() {
@@ -26,6 +25,10 @@ class BackendVolley : Application() {
     fun cancelPendingRequests(tag: Any) {
         if (requestQueue != null)
             requestQueue!!.cancelAll(tag)
+    }
+
+    fun cache(): Cache? {
+        return requestQueue?.cache
     }
 
     companion object {

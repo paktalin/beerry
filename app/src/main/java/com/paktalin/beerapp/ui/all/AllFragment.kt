@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
@@ -33,26 +31,34 @@ class AllFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
 
         with(root.recycler_view_all) {
-            addItemDecoration(MarginItemDecoration(resources.getDimension(R.dimen.default_padding).toInt(), 2))
+            addItemDecoration(
+                MarginItemDecoration(
+                    resources.getDimension(R.dimen.default_padding).toInt(),
+                    2
+                )
+            )
             adapter = context?.let { BeerAdapter(beers, it) }
         }
         return root
     }
 
     private fun loadBeers() {
-        val stringRequest = JsonArrayRequest(
-            Request.Method.GET, "https://api.punkapi.com/v2/beers", null,
-            Response.Listener<JSONArray> { response ->
-                for (i in 0 until response.length()) {
-                    val beer = Beer(response.getJSONObject(i))
-                    beers.add(beer)
-                }
-                view?.recycler_view_all?.adapter?.notifyDataSetChanged()
-            },
-            Response.ErrorListener { e ->
-                println()
-            })
+        val url = "https://api.punkapi.com/v2/beers"
+        val request = JsonArrayRequest(url,
+            { processResponse(it) },
+            {
+                val data = BackendVolley.instance?.cache()?.get(url)?.data
+                data?.let { processResponse(JSONArray(String(data))) }
+            }
+        )
+        BackendVolley.instance?.addToRequestQueue(request, url)
+    }
 
-        BackendVolley.instance?.addToRequestQueue(stringRequest, "")
+    private fun processResponse(jsonArray: JSONArray) {
+        for (i in 0 until jsonArray.length()) {
+            val beer = Beer(jsonArray.getJSONObject(i))
+            beers.add(beer)
+        }
+        view?.recycler_view_all?.adapter?.notifyDataSetChanged()
     }
 }
