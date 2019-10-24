@@ -1,7 +1,7 @@
-package com.paktalin.beerapp
+package com.paktalin.beerapp.server
 
 import com.android.volley.toolbox.JsonArrayRequest
-import com.paktalin.beerapp.server.BackendVolley
+import com.paktalin.beerapp.Beer
 import org.json.JSONArray
 
 class BeerLoader(page: Int = 1) {
@@ -12,7 +12,7 @@ class BeerLoader(page: Int = 1) {
         private const val BEER_PER_PAGE = 25
 
         fun nextPage(itemsCount: Int): Int {
-            return itemsCount/BEER_PER_PAGE + 1
+            return itemsCount/ BEER_PER_PAGE + 1
         }
     }
 

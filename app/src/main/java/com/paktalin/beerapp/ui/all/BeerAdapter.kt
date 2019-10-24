@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.BeerLoader
+import com.paktalin.beerapp.server.BeerLoader
 import com.paktalin.beerapp.R
+import com.squareup.picasso.Callback
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
@@ -36,11 +38,17 @@ class BeerAdapter(
             setLayoutColor(beer.ebc, this)
 
             // TODO cache image
-            Picasso
-                .with(context)
+            Picasso.with(context)
                 .load(beer.imageUrl)
-                .into(image)
-
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(image, object :Callback {
+                    override fun onSuccess() {}
+                    override fun onError() {
+                        Picasso.with(context)
+                            .load(beer.imageUrl)
+                            .into(image)
+                    }
+                })
             if (position == itemCount-1)
                 loadMoreBeer()
         }
@@ -48,7 +56,11 @@ class BeerAdapter(
 
     private fun loadMoreBeer() {
         val itemsCount = beers.size
-        BeerLoader(BeerLoader.nextPage(itemsCount)).loadBeers { newBeers ->
+        BeerLoader(
+            BeerLoader.nextPage(
+                itemsCount
+            )
+        ).loadBeers { newBeers ->
             beers.addAll(itemsCount, newBeers); notifyItemInserted(itemsCount)
         }
     }

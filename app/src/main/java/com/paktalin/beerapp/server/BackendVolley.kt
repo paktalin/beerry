@@ -3,11 +3,18 @@ package com.paktalin.beerapp.server
 import android.app.Application
 import com.android.volley.*
 import com.android.volley.toolbox.Volley
+import com.squareup.picasso.Picasso
+import com.squareup.picasso.OkHttpDownloader
 
 class BackendVolley : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        val builder = Picasso.Builder(this)
+        builder.downloader(OkHttpDownloader(this, Integer.MAX_VALUE.toLong()))
+        val built = builder.build()
+        Picasso.setSingletonInstance(built)
     }
 
     private val requestQueue: RequestQueue? = null
@@ -20,11 +27,6 @@ class BackendVolley : Application() {
     fun <T> addToRequestQueue(request: Request<T>, tag: String) {
         request.tag = tag
         requestQueue?.add(request)
-    }
-
-    fun cancelPendingRequests(tag: Any) {
-        if (requestQueue != null)
-            requestQueue!!.cancelAll(tag)
     }
 
     fun cache(): Cache? {

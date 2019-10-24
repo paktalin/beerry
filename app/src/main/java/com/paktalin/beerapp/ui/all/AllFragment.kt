@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.BeerLoader
+import com.paktalin.beerapp.server.BeerLoader
 import com.paktalin.beerapp.R
 import kotlinx.android.synthetic.main.fragment_all.view.*
 
