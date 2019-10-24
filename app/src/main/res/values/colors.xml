@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#c67100</color>
     <color name="colorBackground">#263238</color>
     <color name="whiteSemitransparent">#80ffffff</color>
+    <color name="colorNoData">#546e7a</color>
 
     <array name="ebc_colors">
         <!--ebc 4-->
