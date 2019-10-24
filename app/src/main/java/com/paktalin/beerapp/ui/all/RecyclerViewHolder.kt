@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 
 class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvName: MaterialTextView = itemView.tv_beer_name
-    val image: ImageView = itemView.image_beer
+    val imageView: ImageView = itemView.image_beer
     val tvAbv: TextView = itemView.tv_abv
     val tvIbu: TextView = itemView.tv_ibu
     val tvAbvTitle: TextView = itemView.tv_abv_title

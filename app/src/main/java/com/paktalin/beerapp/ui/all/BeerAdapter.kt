@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -36,21 +37,8 @@ class BeerAdapter(
             setValue(tvAbvTitle, tvAbv, beer.abv, "##.#'%'")
             setValue(tvIbuTitle, tvIbu, beer.ibu, "###")
             setLayoutColor(beer.ebc, this)
-
-            // TODO cache image
-            Picasso.with(context)
-                .load(beer.imageUrl)
-                .networkPolicy(NetworkPolicy.OFFLINE)
-                .into(image, object :Callback {
-                    override fun onSuccess() {}
-                    override fun onError() {
-                        Picasso.with(context)
-                            .load(beer.imageUrl)
-                            .into(image)
-                    }
-                })
-            if (position == itemCount-1)
-                loadMoreBeer()
+            setImage(beer.imageUrl, holder.imageView)
+            if (position == itemCount-1) loadMoreBeer()
         }
     }
 
@@ -63,6 +51,20 @@ class BeerAdapter(
         ).loadBeers { newBeers ->
             beers.addAll(itemsCount, newBeers); notifyItemInserted(itemsCount)
         }
+    }
+
+    private fun setImage(imageUrl: String, imageView: ImageView) {
+        Picasso.with(context)
+            .load(imageUrl)
+            .networkPolicy(NetworkPolicy.OFFLINE)
+            .into(imageView, object :Callback {
+                override fun onSuccess() {}
+                override fun onError() {
+                    Picasso.with(context)
+                        .load(imageUrl)
+                        .into(imageView)
+                }
+            })
     }
 
     private fun setValue(tvTitle: TextView, tv: TextView, value: Double?, pattern: String) {
@@ -84,12 +86,12 @@ class BeerAdapter(
             textColor = Color.WHITE
             titleTextColor = Color.BLACK
         } else {
-            textColor = ContextCompat.getColor(context, R.color.colorBackground)
-            titleTextColor = ContextCompat.getColor(context, R.color.colorBackground)
+            textColor = Color.BLACK
+            titleTextColor = Color.BLACK
         }
         val layoutColors = context.resources.getIntArray(R.array.ebc_colors)
         val layoutColor = when (ebc) {
-            null -> ContextCompat.getColor(context, R.color.colorNoData)
+            null -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
             in 0.0..4.0 -> layoutColors[0]
             in 4.0..6.0 -> layoutColors[1]
             in 6.0..8.0 -> layoutColors[2]
@@ -103,7 +105,7 @@ class BeerAdapter(
             in 47.0..57.0 -> layoutColors[10]
             in 57.0..69.0 -> layoutColors[11]
             in 69.0..Double.POSITIVE_INFINITY -> layoutColors[12]
-            else -> ContextCompat.getColor(context, R.color.colorNoData)
+            else -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
         }
         holder.layoutSpecs.setBackgroundColor(layoutColor)
         holder.tvAbv.setTextColor(textColor)

@@ -6,7 +6,7 @@ import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.OkHttpDownloader
 
-class BackendVolley : Application() {
+class CacheApp : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -35,7 +35,7 @@ class BackendVolley : Application() {
 
     companion object {
         @get:Synchronized
-        var instance: BackendVolley? = null
+        var instance: CacheApp? = null
             private set
     }
 }

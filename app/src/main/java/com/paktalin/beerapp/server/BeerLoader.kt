@@ -20,11 +20,11 @@ class BeerLoader(page: Int = 1) {
         val request = JsonArrayRequest(beerListUrl,
             { onSuccess(processResponse(it)) },
             {
-                val data = BackendVolley.instance?.cache()?.get(beerListUrl)?.data
+                val data = CacheApp.instance?.cache()?.get(beerListUrl)?.data
                 data?.let { onSuccess(processResponse(JSONArray(String(data)))) }
             }
         )
-        BackendVolley.instance?.addToRequestQueue(request, beerListUrl)
+        CacheApp.instance?.addToRequestQueue(request, beerListUrl)
     }
 
     private fun processResponse(jsonArray: JSONArray): MutableList<Beer> {

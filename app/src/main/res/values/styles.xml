@@ -1,15 +1,11 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!--<item name="colorAccent">@color/colorPrimary</item>
-        <item name="colorSecondary">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>-->
-        <item name="android:windowBackground">@color/colorBackground</item>
         <item name="materialCardViewStyle">@style/MyCardStyle</item>
-
+        <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="MyCardStyle" parent="Widget.MaterialComponents.CardView">
@@ -17,8 +13,20 @@
         <item name="cardCornerRadius">10dp</item>
     </style>
 
-    <style name="MyChip" parent="Widget.MaterialComponents.Chip.Entry">
-        <item name="android:textSize">12sp</item>
+    <style name="CustomBottomSheetDialog" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
+    </style>
+
+    <style name="CustomBottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/CustomShapeAppearanceBottomSheetDialog</item>
+    </style>
+
+    <style name="CustomShapeAppearanceBottomSheetDialog" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
 </resources>

@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.server.BeerLoader
 import com.paktalin.beerapp.R
+import com.paktalin.beerapp.server.BeerLoader
 import kotlinx.android.synthetic.main.fragment_all.view.*
 
 class AllFragment : Fragment() {
@@ -30,8 +30,12 @@ class AllFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
 
-        with(root.recycler_view_all) {
-            adapter = context?.let { BeerAdapter(beers, it) }
+        root.recycler_view_all.adapter = context?.let { BeerAdapter(beers, it) }
+        root.button_filter.setOnClickListener {
+            val bottomSheetFragment = BottomSheetFragment()
+            activity?.supportFragmentManager?.let { manager ->
+                bottomSheetFragment.show(manager, bottomSheetFragment.tag)
+            }
         }
         return root
     }
