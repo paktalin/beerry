@@ -4,103 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
     app:cardBackgroundColor="@android:color/white"
     app:cardElevation="4dp"
     app:cardMaxElevation="6dp">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/image_beer"
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_beer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal"
+            android:inputType="textMultiLine"
+            android:text="My Beer"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="@android:color/secondary_text_light"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_beer" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/image_beer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="160dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="ContentDescription" />
-
-                <ImageView
-                    android:id="@+id/divider"
-                    android:layout_width="0dp"
-                    android:layout_height="4dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/image_beer"
-                    app:srcCompat="@drawable/dashed_line" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_beer_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/tv_abv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/beer_type_background"
+                android:text="ABV"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_abv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="8.6%"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_abv_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_abv_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_abv_title" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_ibu_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal|center_vertical"
-                android:inputType="textMultiLine"
-                android:text="My Beer"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                android:textColor="@android:color/secondary_text_light" />
+                android:background="@drawable/beer_type_background"
+                android:text="IBU"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@android:color/secondary_text_light"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_abv"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_ibu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="80"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_ibu_title"
+                app:layout_constraintStart_toEndOf="@+id/tv_ibu_title"
+                app:layout_constraintTop_toTopOf="@+id/tv_ibu_title" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/materialTextView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="ABV"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@android:color/secondary_text_light" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/materialTextView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="IBU"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@android:color/secondary_text_light" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="EBC"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@android:color/secondary_text_light" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </com.google.android.material.card.MaterialCardView>

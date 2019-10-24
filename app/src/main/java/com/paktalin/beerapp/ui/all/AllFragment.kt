@@ -10,7 +10,6 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.server.BackendVolley
-import com.paktalin.beerapp.ui.MarginItemDecoration
 import kotlinx.android.synthetic.main.fragment_all.view.*
 import org.json.JSONArray
 
@@ -31,12 +30,6 @@ class AllFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
 
         with(root.recycler_view_all) {
-            addItemDecoration(
-                MarginItemDecoration(
-                    resources.getDimension(R.dimen.default_padding).toInt(),
-                    2
-                )
-            )
             adapter = context?.let { BeerAdapter(beers, it) }
         }
         return root
