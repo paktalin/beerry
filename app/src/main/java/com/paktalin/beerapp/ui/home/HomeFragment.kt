@@ -66,14 +66,17 @@ class HomeFragment: Fragment() {
     private fun reloadBeer() {
         isLastPage = false
         beers.clear()
+
         BeerLoader(beerFilter).loadBeers({ newBeers ->
             if (newBeers.size < BEER_PER_PAGE)
                 isLastPage = true
             if (newBeers.size == 0) {
-                notifyNoBeerFound()
+                view?.layout_no_matches?.visibility = View.VISIBLE
+                view?.button_filter_again?.setOnClickListener { showFilterDialog() }
                 view?.recycler_view_all?.adapter?.notifyDataSetChanged()
                 return@loadBeers
             }
+            view?.layout_no_matches?.visibility = View.GONE
             onBeerLoaded(newBeers, 0)
         }, favoriteBeers)
     }
@@ -89,12 +92,5 @@ class HomeFragment: Fragment() {
     private fun onBeerLoaded(newBeers: MutableList<Beer>, index: Int) {
         beers.addAll(index, newBeers)
         view?.recycler_view_all?.adapter?.notifyItemInserted(index)
-    }
-
-    private fun notifyNoBeerFound() {
-        view?.layout_main?.let {
-            Snackbar.make(it, R.string.no_matches, Snackbar.LENGTH_SHORT)
-                .show()
-        }
     }
 }
