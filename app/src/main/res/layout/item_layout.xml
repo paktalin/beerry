@@ -15,6 +15,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/image_beer"
+            app:layout_constraintEnd_toEndOf="@id/image_beer"
+            app:layout_constraintStart_toStartOf="@id/image_beer"
+            app:layout_constraintTop_toTopOf="@+id/image_beer" />
+
         <ImageButton
             android:id="@+id/button_add_to_favorite"
             android:layout_width="wrap_content"

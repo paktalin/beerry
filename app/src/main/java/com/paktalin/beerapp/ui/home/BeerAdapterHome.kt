@@ -4,6 +4,8 @@ import android.view.View
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.addToFavorite
 import com.paktalin.beerapp.removeFromFavorite
+import com.paktalin.beerapp.ui.BeerAdapter
+import com.paktalin.beerapp.ui.RecyclerViewHolder
 
 class BeerAdapterHome(
     beers: MutableList<Beer>,

@@ -6,5 +6,6 @@
     <string name="abv_selection">ABV from %1$s to %2$s</string>
     <string name="ibu_selection">IBU from %1$s to %2$s</string>
     <string name="ebc_selection">EBC from %1$s to %2$s</string>
+    <string name="no_matches">No beers found!</string>
 
 </resources>

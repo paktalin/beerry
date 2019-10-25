@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.BeerFilter
 import com.paktalin.beerapp.R
@@ -68,6 +69,11 @@ class HomeFragment: Fragment() {
         BeerLoader(beerFilter).loadBeers({ newBeers ->
             if (newBeers.size < BEER_PER_PAGE)
                 isLastPage = true
+            if (newBeers.size == 0) {
+                notifyNoBeerFound()
+                view?.recycler_view_all?.adapter?.notifyDataSetChanged()
+                return@loadBeers
+            }
             onBeerLoaded(newBeers, 0)
         }, favoriteBeers)
     }
@@ -84,5 +90,11 @@ class HomeFragment: Fragment() {
         beers.addAll(index, newBeers)
         view?.recycler_view_all?.adapter?.notifyItemInserted(index)
     }
-}
 
+    private fun notifyNoBeerFound() {
+        view?.layout_main?.let {
+            Snackbar.make(it, R.string.no_matches, Snackbar.LENGTH_SHORT)
+                .show()
+        }
+    }
+}

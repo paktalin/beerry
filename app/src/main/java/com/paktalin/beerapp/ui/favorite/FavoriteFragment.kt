@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.getFavoriteBeers
-import com.paktalin.beerapp.ui.home.BeerAdapter
+import com.paktalin.beerapp.ui.BeerAdapter
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class FavoriteFragment : Fragment() {

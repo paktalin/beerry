@@ -1,8 +1,9 @@
-package com.paktalin.beerapp.ui.home
+package com.paktalin.beerapp.ui
 
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -19,4 +20,5 @@ class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvIbuTitle: TextView = itemView.tv_ibu_title
     val layoutSpecs: ConstraintLayout = itemView.layout_specs
     val buttonFavorite: ImageButton = itemView.button_add_to_favorite
+    val progress: ProgressBar = itemView.progress
 }
