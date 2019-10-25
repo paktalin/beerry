@@ -85,9 +85,13 @@ class FilterFragment: BottomSheetDialogFragment() {
         text: (left: String, right: String) -> String
     ) {
         with(rangeBar) {
-            initialRange?.apply { setRangePinsByIndices(first, if (last == Int.MAX_VALUE) tickEnd.toInt() else last) }
             val max = "${tickEnd.toInt()}+"
             tvSelection.text = text(leftPinValue, max)
+            initialRange?.apply {
+                val right = if (last == Int.MAX_VALUE) tickEnd.toInt() else last
+                setRangePinsByIndices(first, right)
+                tvSelection.text = text(first.toString(), right.toString())
+            }
             setPinTextFormatter { value -> if (value == tickEnd.toInt().toString()) max else value }
             setOnRangeBarChangeListener(changeListener { left, right ->
                 tvSelection.text = text(left, right)
