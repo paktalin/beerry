@@ -1,4 +1,4 @@
-package com.paktalin.beerapp.ui.all
+package com.paktalin.beerapp.ui.home
 
 import android.view.View
 import android.widget.ImageView

@@ -1,4 +1,4 @@
-package com.paktalin.beerapp.ui.all
+package com.paktalin.beerapp.ui.home
 
 import android.content.Context
 import android.graphics.Color

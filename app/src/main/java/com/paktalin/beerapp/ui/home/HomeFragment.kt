@@ -1,4 +1,4 @@
-package com.paktalin.beerapp.ui.all
+package com.paktalin.beerapp.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.BeerFilter
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.server.BeerLoader
-import kotlinx.android.synthetic.main.fragment_all.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 private const val KEY_BEER_FILTER = "beer_filter"
 
-class AllFragment: Fragment() {
+class HomeFragment: Fragment() {
     private var beers = mutableListOf<Beer>()
     private var beerFilter: BeerFilter? = null
 
@@ -24,7 +24,7 @@ class AllFragment: Fragment() {
     ): View? {
         savedInstanceState?.apply { beerFilter = getSerializable(KEY_BEER_FILTER) as BeerFilter? }
         loadNewBeer()
-        val root = inflater.inflate(R.layout.fragment_all, container, false)
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
         root.recycler_view_all.adapter = BeerAdapter(beers) { loadNewBeer() }
         root.button_filter.setOnClickListener { showFilterDialog() }
         return root
