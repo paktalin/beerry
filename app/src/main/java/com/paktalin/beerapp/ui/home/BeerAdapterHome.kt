@@ -17,8 +17,11 @@ class BeerAdapterHome(
             if (position == itemCount - 1)
                 loadMoreBeer() // reached the end, loading more
 
+            if(beer.isFavorite) {
+                buttonFavorite.alpha = 1f
+                buttonFavorite.isSelected = true
+            }
             buttonFavorite.visibility = View.VISIBLE
-            buttonFavorite.isSelected = beer.isFavorite
             buttonFavorite.setOnClickListener {
                 if (!it.isSelected)
                     context?.addToFavorite(beer)
@@ -26,6 +29,7 @@ class BeerAdapterHome(
                     context?.removeFromFavorite(beer)
                 beer.isFavorite = !beer.isFavorite
                 it.isSelected = !it.isSelected
+                it.alpha = if (it.isSelected) 1f else 0.6f
             }
         }
     }

@@ -6,6 +6,8 @@
     <color name="colorSecondaryLight">#757575</color>
     <color name="colorPrimarySemiTransparent">#60ffa000</color>
     <color name="colorSecondarySemitransparent">#20121212</color>
+    <color name="colorFavorite">#d32f2f</color>
+    <color name="colorBackground">#121212</color>
 
     <array name="ebc_colors">
         <!--ebc 4-->
