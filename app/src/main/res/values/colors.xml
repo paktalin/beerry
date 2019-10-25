@@ -2,11 +2,10 @@
 <resources>
     <color name="colorPrimary">#ffa000</color>
     <color name="colorPrimaryDark">#c67100</color>
-    <color name="colorSecondary">#263238</color>
     <color name="whiteSemitransparent">#80ffffff</color>
-    <color name="colorSecondaryLight">#546e7a</color>
+    <color name="colorSecondaryLight">#757575</color>
     <color name="colorPrimarySemiTransparent">#60ffa000</color>
-    <color name="colorSecondarySemitransparent">#20263238</color>
+    <color name="colorSecondarySemitransparent">#20121212</color>
 
     <array name="ebc_colors">
         <!--ebc 4-->

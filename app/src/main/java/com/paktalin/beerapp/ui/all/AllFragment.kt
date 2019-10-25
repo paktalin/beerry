@@ -32,7 +32,7 @@ class AllFragment : Fragment() {
 
         root.recycler_view_all.adapter = context?.let { BeerAdapter(beers, it) }
         root.button_filter.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
+            val bottomSheetFragment = FilterFragment()
             activity?.supportFragmentManager?.let { manager ->
                 bottomSheetFragment.show(manager, bottomSheetFragment.tag)
             }

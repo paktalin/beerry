@@ -3,5 +3,8 @@
     <string name="title_all">All</string>
     <string name="title_search">Search</string>
     <string name="title_favorite">Favorite</string>
-    <string name="abv_selection">%1$s-%2$s\%%</string>
+    <string name="abv_selection">ABV from %1$s to %2$s</string>
+    <string name="ibu_selection">IBU from %1$s to %2$s</string>
+    <string name="ebc_selection">EBC from %1$s to %2$s</string>
+
 </resources>
