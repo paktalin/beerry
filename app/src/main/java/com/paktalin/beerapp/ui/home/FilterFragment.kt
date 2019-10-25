@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.appyvet.materialrangebar.RangeBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.paktalin.beerapp.BeerFilter
 import com.paktalin.beerapp.R
 import kotlinx.android.synthetic.main.fragment_filter.*
 import kotlinx.android.synthetic.main.fragment_filter.view.*
@@ -62,35 +61,36 @@ class FilterFragment: BottomSheetDialogFragment() {
     }
 
     private fun setUpAbv(view: View) {
-        setUpSpec(view.abv_rangebar, view.tv_abv_selection, filter?.abvRange) {l, r ->
+        setUpSpec(view.abv_rangebar, view.tv_abv_selection, filter?.abvLeft, filter?.abvRight) {l, r ->
             resources.getString(R.string.abv_selection, l, r)
         }
     }
 
     private fun setUpIbu(view: View) {
-        setUpSpec(view.ibu_rangebar, view.tv_ibu_selection, filter?.ibuRange) {l, r ->
+        setUpSpec(view.ibu_rangebar, view.tv_ibu_selection, filter?.ibuLeft, filter?.ibuRight) {l, r ->
             resources.getString(R.string.ibu_selection, l, r)
         }
     }
 
     private fun setUpEbc(view: View) {
-        setUpSpec(view.ebc_rangebar, view.tv_ebc_selection, filter?.ebcRange) { l, r ->
+        setUpSpec(view.ebc_rangebar, view.tv_ebc_selection, filter?.ebcLeft, filter?.ebcRight) { l, r ->
             resources.getString(R.string.ebc_selection, l, r) }
     }
 
     private fun setUpSpec(
         rangeBar: RangeBar,
         tvSelection: TextView,
-        initialRange: IntRange?,
+        initialLeft: Int?,
+        initialRight: Int?,
         text: (left: String, right: String) -> String
     ) {
         with(rangeBar) {
             val max = "${tickEnd.toInt()}+"
             tvSelection.text = text(leftPinValue, max)
-            initialRange?.apply {
-                val right = if (last == Int.MAX_VALUE) tickEnd.toInt() else last
-                setRangePinsByIndices(first, right)
-                tvSelection.text = text(first.toString(), right.toString())
+            if(initialLeft != null && initialRight != null) {
+                val right = if (initialRight == Int.MAX_VALUE) tickEnd.toInt() else initialRight
+                setRangePinsByIndices(initialLeft, right)
+                tvSelection.text = text(initialLeft.toString(), right.toString())
             }
             setPinTextFormatter { value -> if (value == tickEnd.toInt().toString()) max else value }
             setOnRangeBarChangeListener(changeListener { left, right ->

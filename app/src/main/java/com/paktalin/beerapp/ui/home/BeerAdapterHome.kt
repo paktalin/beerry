@@ -22,6 +22,9 @@ class BeerAdapterHome(
             if(beer.isFavorite) {
                 buttonFavorite.alpha = 1f
                 buttonFavorite.isSelected = true
+            } else {
+                buttonFavorite.alpha = 0.6f
+                buttonFavorite.isSelected = false
             }
             buttonFavorite.visibility = View.VISIBLE
             buttonFavorite.setOnClickListener {

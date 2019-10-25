@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.BeerFilter
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.getFavoriteBeers
 import com.paktalin.beerapp.server.BeerLoader
@@ -61,13 +59,17 @@ class HomeFragment: Fragment() {
         activity?.supportFragmentManager?.let { manager ->
             filterFragment.show(manager, filterFragment.tag)
         }
+        view?.progress?.visibility = View.GONE
     }
 
     private fun reloadBeer() {
         isLastPage = false
         beers.clear()
+        view?.recycler_view_all?.adapter?.notifyDataSetChanged()
+        view?.progress?.visibility = View.VISIBLE
 
         BeerLoader(beerFilter).loadBeers({ newBeers ->
+            view?.progress?.visibility = View.GONE
             if (newBeers.size < BEER_PER_PAGE)
                 isLastPage = true
             if (newBeers.size == 0) {

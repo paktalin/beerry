@@ -55,6 +55,7 @@ open class BeerAdapter(
                     holder.progress.visibility = View.GONE
                 }
                 override fun onError() {
+                    holder.progress.visibility = View.GONE
                     Picasso.with(context)
                         .load(imageUrl)
                         .into(holder.imageView)

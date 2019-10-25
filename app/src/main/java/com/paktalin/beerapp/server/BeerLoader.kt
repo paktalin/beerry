@@ -2,7 +2,7 @@ package com.paktalin.beerapp.server
 
 import com.android.volley.toolbox.JsonArrayRequest
 import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.BeerFilter
+import com.paktalin.beerapp.ui.home.BeerFilter
 import org.json.JSONArray
 
 class BeerLoader(beerFilter: BeerFilter?) {
