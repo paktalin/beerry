@@ -44,7 +44,8 @@ class BeerAdapter(
             setValue(tvIbuTitle, tvIbu, beer.ibu, "###")
             setLayoutColor(beer.ebc, this)
             setImage(beer.imageUrl, holder.imageView)
-            if (position == itemCount - 1) loadMoreBeer() // reached the end, loading more
+            if (position == itemCount - 1)
+                loadMoreBeer() // reached the end, loading more
         }
     }
 

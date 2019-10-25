@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.paktalin.beerapp.Beer
+import com.paktalin.beerapp.BeerFilter
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.server.BeerLoader
 import kotlinx.android.synthetic.main.fragment_all.view.*
@@ -14,11 +15,10 @@ import kotlinx.android.synthetic.main.fragment_all.view.*
 class AllFragment : Fragment() {
 
     private var beers = mutableListOf<Beer>()
-    private var beerLoader: BeerLoader? = null
+    private var beerFilter: BeerFilter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        beerLoader = BeerLoader()
         loadNewBeer()
     }
 
@@ -29,21 +29,24 @@ class AllFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
         root.recycler_view_all.adapter = BeerAdapter(beers) { loadNewBeer() }
-        root.button_filter.setOnClickListener {
-            val filterFragment = FilterFragment { abvRange, ibuRange, ebcRange ->
-                beerLoader = BeerLoader(abvRange, ibuRange, ebcRange)
-                reloadBeer()
-            }
-            activity?.supportFragmentManager?.let { manager ->
-                filterFragment.show(manager, filterFragment.tag)
-            }
-        }
+        root.button_filter.setOnClickListener { showFilterDialog() }
         return root
+    }
+
+    private fun showFilterDialog() {
+        val filterFragment = FilterFragment(beerFilter) { beerFilter ->
+            this.beerFilter = beerFilter
+            reloadBeer()
+        }
+
+        activity?.supportFragmentManager?.let { manager ->
+            filterFragment.show(manager, filterFragment.tag)
+        }
     }
 
     private fun reloadBeer() {
         beers.clear()
-        beerLoader?.loadBeers({ newBeers ->
+        BeerLoader(beerFilter).loadBeers({ newBeers ->
             beers.addAll(0, newBeers)
             view?.recycler_view_all?.adapter?.notifyDataSetChanged()
         })
@@ -58,7 +61,7 @@ class AllFragment : Fragment() {
             beers.addAll(itemsCount, newBeers)
             view?.recycler_view_all?.adapter?.notifyItemInserted(itemsCount)
         }
-        beerLoader?.loadBeers({ newBeers -> onSuccess(newBeers) }, page)
+        BeerLoader(beerFilter).loadBeers({ newBeers -> onSuccess(newBeers) }, page)
     }
 }
 
