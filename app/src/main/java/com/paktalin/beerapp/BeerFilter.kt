@@ -1,6 +1,8 @@
 package com.paktalin.beerapp
 
-class BeerFilter(val abvRange: IntRange, val ibuRange: IntRange, val ebcRange: IntRange) {
+import java.io.Serializable
+
+class BeerFilter(val abvRange: IntRange, val ibuRange: IntRange, val ebcRange: IntRange): Serializable {
     val abvGt = gt(abvRange)?.let { "&abv_gt=$it" } ?: ""
     val abvLt = lt(abvRange)?.let { "&abv_lt=$it" } ?: ""
     val ibuGt = gt(ibuRange)?.let { "&ibu_gt=$it" } ?: ""

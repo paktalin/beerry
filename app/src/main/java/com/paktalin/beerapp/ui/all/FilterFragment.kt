@@ -12,11 +12,26 @@ import com.paktalin.beerapp.R
 import kotlinx.android.synthetic.main.fragment_filter.*
 import kotlinx.android.synthetic.main.fragment_filter.view.*
 
-class FilterFragment(
-    private val filter: BeerFilter?,
-    private val onComplete: (BeerFilter) -> Unit
-) :
-    BottomSheetDialogFragment() {
+private const val KEY_BEER_FILTER = "beer_filter"
+
+class FilterFragment: BottomSheetDialogFragment() {
+    private var onComplete: (BeerFilter) -> Unit = {}
+    private var filter: BeerFilter? = null
+
+    companion object {
+        fun newInstance(beerFilter: BeerFilter?, onComplete: (BeerFilter) -> Unit): FilterFragment {
+            val filterFragment = FilterFragment()
+            filterFragment.arguments?.putSerializable(KEY_BEER_FILTER, beerFilter)
+            filterFragment.arguments = Bundle().apply { putSerializable(KEY_BEER_FILTER, beerFilter) }
+            filterFragment.onComplete = onComplete
+            return filterFragment
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        filter = arguments?.getSerializable(KEY_BEER_FILTER) as BeerFilter?
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
