@@ -17,9 +17,9 @@ data class Beer(
     val imageUrl: String,
     val abv: Double?,
     val ibu: Double?,
-    val ebc: Double?
+    val ebc: Double?,
+    var isFavorite: Boolean = false
 ) {
-
     constructor(jsonObject: JSONObject) : this(
         jsonObject.getLong(KEY_BEER_ID),
         jsonObject.getString(KEY_BEER_NAME),
@@ -34,16 +34,20 @@ data class Beer(
             .put(KEY_BEER_ID, id)
             .put(KEY_BEER_NAME, name)
             .put(KEY_IMAGE_URL, imageUrl)
-            .put(KEY_ABV, abv)
-            .put(KEY_IBU, ibu)
-            .put(KEY_EBC, ebc)
+            .put(KEY_ABV, if (abv?.isNaN() == true) null else abv)
+            .put(KEY_IBU, if (ibu?.isNaN() == true) null else ibu)
+            .put(KEY_EBC, if (ebc?.isNaN() == true) null else ebc)
     }
 
     companion object {
-        fun beersFromJsonArray(jsonArray: JSONArray): MutableList<Beer> {
+        fun beersFromJsonArray(jsonArray: JSONArray, favorites: MutableList<Beer>? = null): MutableList<Beer> {
             val beers = mutableListOf<Beer>()
-            for (i in 0 until jsonArray.length())
-                beers.add(Beer(jsonArray.getJSONObject(i)))
+            val favoriteIds = favorites?.map(Beer::id)
+            for (i in 0 until jsonArray.length()) {
+                val beer = Beer(jsonArray.getJSONObject(i))
+                if (favoriteIds != null && beer.id in favoriteIds) beer.isFavorite = true
+                beers.add(beer)
+            }
             return beers
         }
     }

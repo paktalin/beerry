@@ -1,5 +1,6 @@
 package com.paktalin.beerapp.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.BeerFilter
 import com.paktalin.beerapp.R
+import com.paktalin.beerapp.getFavoriteBeers
 import com.paktalin.beerapp.server.BeerLoader
 import com.paktalin.beerapp.server.BeerLoader.Companion.BEER_PER_PAGE
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -19,6 +21,12 @@ class HomeFragment: Fragment() {
     private var beers = mutableListOf<Beer>()
     private var beerFilter: BeerFilter? = null
     private var isLastPage = false
+    private var favoriteBeers = mutableListOf<Beer>()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        favoriteBeers = context.getFavoriteBeers()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +69,7 @@ class HomeFragment: Fragment() {
             if (newBeers.size < BEER_PER_PAGE)
                 isLastPage = true
             onBeerLoaded(newBeers, 0)
-        })
+        }, favoriteBeers)
     }
 
     private fun loadMoreBeer() {
@@ -69,7 +77,7 @@ class HomeFragment: Fragment() {
 
         val itemsCount = beers.size
         val page = BeerLoader.nextPage(itemsCount)
-        BeerLoader(beerFilter).loadBeers({ newBeers -> onBeerLoaded(newBeers, itemsCount) }, page)
+        BeerLoader(beerFilter).loadBeers({ newBeers -> onBeerLoaded(newBeers, itemsCount) }, favoriteBeers, page)
     }
 
     private fun onBeerLoaded(newBeers: MutableList<Beer>, index: Int) {

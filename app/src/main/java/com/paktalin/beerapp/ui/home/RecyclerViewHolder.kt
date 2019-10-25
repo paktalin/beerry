@@ -1,10 +1,12 @@
 package com.paktalin.beerapp.ui.home
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 import kotlinx.android.synthetic.main.item_layout.view.*
 
@@ -16,4 +18,5 @@ class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvAbvTitle: TextView = itemView.tv_abv_title
     val tvIbuTitle: TextView = itemView.tv_ibu_title
     val layoutSpecs: ConstraintLayout = itemView.layout_specs
+    val buttonFavorite: ImageButton = itemView.button_add_to_favorite
 }

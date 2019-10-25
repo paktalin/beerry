@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.removeFromFavorite
-import com.paktalin.beerapp.saveAsFavorite
+import com.paktalin.beerapp.addToFavorite
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.item_layout.view.*
 import java.text.DecimalFormat
 
 class BeerAdapter(
@@ -42,18 +41,20 @@ class BeerAdapter(
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val beer = beers[position]
         with(holder) {
-            tvName.text = beer.name
-            setValue(tvAbvTitle, tvAbv, beer.abv, "##.#'%'")
-            setValue(tvIbuTitle, tvIbu, beer.ibu, "###")
-            setLayoutColor(beer.ebc, this)
-            setImage(beer.imageUrl, holder.imageView)
             if (position == itemCount - 1)
                 loadMoreBeer() // reached the end, loading more
-            itemView.button_add_to_favorite.setOnClickListener {
+            tvName.text = beer.name
+            setSpec(tvAbvTitle, tvAbv, beer.abv, "##.#'%'")
+            setSpec(tvIbuTitle, tvIbu, beer.ibu, "###")
+            setLayoutColor(beer.ebc, this)
+            setImage(beer.imageUrl, holder.imageView)
+            buttonFavorite.isSelected = beer.isFavorite
+            buttonFavorite.setOnClickListener {
                 if (!it.isSelected)
-                    context?.saveAsFavorite(beer)
+                    context?.addToFavorite(beer)
                 else
                     context?.removeFromFavorite(beer)
+                beer.isFavorite = !beer.isFavorite
                 it.isSelected = !it.isSelected
             }
         }
@@ -73,7 +74,7 @@ class BeerAdapter(
             })
     }
 
-    private fun setValue(tvTitle: TextView, tv: TextView, value: Double?, pattern: String) {
+    private fun setSpec(tvTitle: TextView, tv: TextView, value: Double?, pattern: String) {
         if (value == null || value.isNaN()) {
             // remove text and its label
             tv.text = null

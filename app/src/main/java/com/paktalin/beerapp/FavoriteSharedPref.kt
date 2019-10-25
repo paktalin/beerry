@@ -8,7 +8,7 @@ private const val SHARED_PREF_MODE = 0
 
 private const val KEY_JSON_FAVORITE = "favorite_json"
 
-fun Context.saveAsFavorite(beer: Beer) {
+fun Context.addToFavorite(beer: Beer) {
     val pref = getSharedPreferences(SHARED_PREF_NAME, SHARED_PREF_MODE)
     val oldFavorite = pref.getString(KEY_JSON_FAVORITE, null)
     val updated = updateFavorite(oldFavorite, beer)
@@ -30,8 +30,8 @@ fun Context.removeFromFavorite(beer: Beer) {
     }
 }
 
-fun Context.getFavoriteBeers(): MutableList<Beer>? {
-    val favoritesJson = getJsonArray(this) ?: return null
+fun Context.getFavoriteBeers(): MutableList<Beer> {
+    val favoritesJson = getJsonArray(this) ?: return mutableListOf()
     return Beer.beersFromJsonArray(favoritesJson)
 }
 
