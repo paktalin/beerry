@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.server.BeerLoader
 import com.paktalin.beerapp.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
@@ -19,12 +18,19 @@ import java.text.DecimalFormat
 
 class BeerAdapter(
     private val beers: MutableList<Beer>,
-    private val context: Context
+    private val loadMoreBeer: () -> Unit
 ) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
+    private var context: Context? = null
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        context = recyclerView.context
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
-        return RecyclerViewHolder(v); }
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
+        return RecyclerViewHolder(view); }
 
     override fun getItemCount(): Int {
         return beers.size
@@ -38,18 +44,7 @@ class BeerAdapter(
             setValue(tvIbuTitle, tvIbu, beer.ibu, "###")
             setLayoutColor(beer.ebc, this)
             setImage(beer.imageUrl, holder.imageView)
-            if (position == itemCount-1) loadMoreBeer()
-        }
-    }
-
-    private fun loadMoreBeer() {
-        val itemsCount = beers.size
-        BeerLoader(
-            BeerLoader.nextPage(
-                itemsCount
-            )
-        ).loadBeers { newBeers ->
-            beers.addAll(itemsCount, newBeers); notifyItemInserted(itemsCount)
+            if (position == itemCount - 1) loadMoreBeer() // reached the end, loading more
         }
     }
 
@@ -57,7 +52,7 @@ class BeerAdapter(
         Picasso.with(context)
             .load(imageUrl)
             .networkPolicy(NetworkPolicy.OFFLINE)
-            .into(imageView, object :Callback {
+            .into(imageView, object : Callback {
                 override fun onSuccess() {}
                 override fun onError() {
                     Picasso.with(context)
@@ -89,28 +84,32 @@ class BeerAdapter(
             textColor = Color.BLACK
             titleTextColor = Color.BLACK
         }
-        val layoutColors = context.resources.getIntArray(R.array.ebc_colors)
-        val layoutColor = when (ebc) {
-            null -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
-            in 0.0..4.0 -> layoutColors[0]
-            in 4.0..6.0 -> layoutColors[1]
-            in 6.0..8.0 -> layoutColors[2]
-            in 8.0..12.0 -> layoutColors[3]
-            in 12.0..16.0 -> layoutColors[4]
-            in 16.0..20.0 -> layoutColors[5]
-            in 20.0..26.0 -> layoutColors[6]
-            in 26.0..33.0 -> layoutColors[7]
-            in 33.0..39.0 -> layoutColors[8]
-            in 39.0..47.0 -> layoutColors[9]
-            in 47.0..57.0 -> layoutColors[10]
-            in 57.0..69.0 -> layoutColors[11]
-            in 69.0..Double.POSITIVE_INFINITY -> layoutColors[12]
-            else -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
+        context?.let { context ->
+
+            val layoutColors = context.resources.getIntArray(R.array.ebc_colors)
+            val layoutColor = when (ebc) {
+                null -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
+                in 0.0..4.0 -> layoutColors[0]
+                in 4.0..6.0 -> layoutColors[1]
+                in 6.0..8.0 -> layoutColors[2]
+                in 8.0..12.0 -> layoutColors[3]
+                in 12.0..16.0 -> layoutColors[4]
+                in 16.0..20.0 -> layoutColors[5]
+                in 20.0..26.0 -> layoutColors[6]
+                in 26.0..33.0 -> layoutColors[7]
+                in 33.0..39.0 -> layoutColors[8]
+                in 39.0..47.0 -> layoutColors[9]
+                in 47.0..57.0 -> layoutColors[10]
+                in 57.0..69.0 -> layoutColors[11]
+                in 69.0..Double.POSITIVE_INFINITY -> layoutColors[12]
+                else -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
+            }
+            holder.layoutSpecs.setBackgroundColor(layoutColor)
+            holder.tvAbv.setTextColor(textColor)
+            holder.tvIbu.setTextColor(textColor)
+            holder.tvAbvTitle.setTextColor(titleTextColor)
+            holder.tvIbuTitle.setTextColor(titleTextColor)
+
         }
-        holder.layoutSpecs.setBackgroundColor(layoutColor)
-        holder.tvAbv.setTextColor(textColor)
-        holder.tvIbu.setTextColor(textColor)
-        holder.tvAbvTitle.setTextColor(titleTextColor)
-        holder.tvIbuTitle.setTextColor(titleTextColor)
     }
 }

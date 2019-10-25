@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import com.appyvet.materialrangebar.RangeBar
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.paktalin.beerapp.R
+import kotlinx.android.synthetic.main.fragment_filter.*
 import kotlinx.android.synthetic.main.fragment_filter.view.*
 
-class FilterFragment : BottomSheetDialogFragment() {
+class FilterFragment(private val onComplete: (abvRange: IntRange, ibuRange: IntRange, ebcRange: IntRange) -> Unit) :
+    BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -18,32 +20,46 @@ class FilterFragment : BottomSheetDialogFragment() {
 
         with(view.abv_rangebar) {
             val max = "${tickEnd.toInt()}+"
-            view.tv_abv_selection.text = resources.getString(R.string.abv_selection, tickStart.toInt().toString(), max)
+            view.tv_abv_selection.text =
+                resources.getString(R.string.abv_selection, leftPinValue, max)
             setPinTextFormatter { string -> if (string == tickEnd.toInt().toString()) max else string }
             setOnRangeBarChangeListener(changeListener { left, right ->
-                view.tv_abv_selection.text = resources.getString(R.string.abv_selection, left, right)
+                view.tv_abv_selection.text =
+                    resources.getString(R.string.abv_selection, left, right)
             })
         }
         with(view.ibu_rangebar) {
             val max = "${tickEnd.toInt()}+"
-            view.tv_ibu_selection.text = resources.getString(R.string.ibu_selection, tickStart.toInt().toString(), max)
+            view.tv_ibu_selection.text =
+                resources.getString(R.string.ibu_selection, leftPinValue, max)
             setPinTextFormatter { string -> if (string == tickEnd.toInt().toString()) max else string }
             setOnRangeBarChangeListener(changeListener { left, right ->
-                view.tv_ibu_selection.text = resources.getString(R.string.ibu_selection, left, right)
+                view.tv_ibu_selection.text =
+                    resources.getString(R.string.ibu_selection, left, right)
             })
         }
         with(view.ebc_rangebar) {
             val max = "${tickEnd.toInt()}+"
-            view.tv_ebc_selection.text = resources.getString(R.string.ebc_selection, tickStart.toInt().toString(), max)
+            view.tv_ebc_selection.text =
+                resources.getString(R.string.ebc_selection, leftPinValue, max)
             setPinTextFormatter { string -> if (string == tickEnd.toInt().toString()) max else string }
             setOnRangeBarChangeListener(changeListener { left, right ->
-                view.tv_ebc_selection.text = resources.getString(R.string.ebc_selection, left, right)
+                view.tv_ebc_selection.text =
+                    resources.getString(R.string.ebc_selection, left, right)
             })
+        }
+
+        view.button_submit_filter.setOnClickListener {
+            val range: (rangeBar: RangeBar) -> IntRange = {
+                val rightIndex = if (it.rightIndex == it.tickEnd.toInt()) Int.MAX_VALUE else it.rightIndex
+                it.leftIndex..rightIndex
+            }
+            onComplete(range(view.abv_rangebar), range(ibu_rangebar), range(view.ebc_rangebar) )
+            this.dismiss()
         }
 
         return view
     }
-
 
     private fun changeListener(onChange: (left: String, right: String) -> Unit): RangeBar.OnRangeBarChangeListener {
         return object : RangeBar.OnRangeBarChangeListener {

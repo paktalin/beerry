@@ -14,13 +14,12 @@ import kotlinx.android.synthetic.main.fragment_all.view.*
 class AllFragment : Fragment() {
 
     private var beers = mutableListOf<Beer>()
+    private var beerLoader: BeerLoader? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        BeerLoader().loadBeers { beers ->
-            this.beers.addAll(0, beers)
-            view?.recycler_view_all?.adapter?.notifyDataSetChanged()
-        }
+        beerLoader = BeerLoader()
+        loadNewBeer()
     }
 
     override fun onCreateView(
@@ -29,14 +28,37 @@ class AllFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_all, container, false)
-
-        root.recycler_view_all.adapter = context?.let { BeerAdapter(beers, it) }
+        root.recycler_view_all.adapter = BeerAdapter(beers) { loadNewBeer() }
         root.button_filter.setOnClickListener {
-            val bottomSheetFragment = FilterFragment()
+            val filterFragment = FilterFragment { abvRange, ibuRange, ebcRange ->
+                beerLoader = BeerLoader(abvRange, ibuRange, ebcRange)
+                reloadBeer()
+            }
             activity?.supportFragmentManager?.let { manager ->
-                bottomSheetFragment.show(manager, bottomSheetFragment.tag)
+                filterFragment.show(manager, filterFragment.tag)
             }
         }
         return root
     }
+
+    private fun reloadBeer() {
+        beers.clear()
+        beerLoader?.loadBeers({ newBeers ->
+            beers.addAll(0, newBeers)
+            view?.recycler_view_all?.adapter?.notifyDataSetChanged()
+        })
+
+    }
+
+    private fun loadNewBeer() {
+        val itemsCount = beers.size
+        val page = BeerLoader.nextPage(itemsCount)
+
+        val onSuccess = { newBeers: MutableList<Beer> ->
+            beers.addAll(itemsCount, newBeers)
+            view?.recycler_view_all?.adapter?.notifyItemInserted(itemsCount)
+        }
+        beerLoader?.loadBeers({ newBeers -> onSuccess(newBeers) }, page)
+    }
 }
+
