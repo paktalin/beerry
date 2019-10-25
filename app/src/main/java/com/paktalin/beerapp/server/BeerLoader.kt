@@ -19,7 +19,7 @@ class BeerLoader(beerFilter: BeerFilter?) {
     }
 
     companion object {
-        private const val BEER_PER_PAGE = 25
+        const val BEER_PER_PAGE = 25
 
         fun nextPage(itemsCount: Int): Int {
             return itemsCount / BEER_PER_PAGE + 1

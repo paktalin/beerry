@@ -21,6 +21,7 @@ class AllFragment : Fragment() {
         super.onAttach(context)
         loadNewBeer()
     }
+    // TODO restore state on rotation
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,7 +56,10 @@ class AllFragment : Fragment() {
 
     private fun loadNewBeer() {
         val itemsCount = beers.size
+
         val page = BeerLoader.nextPage(itemsCount)
+        if (itemsCount != 0 && itemsCount < (page-1)*BeerLoader.BEER_PER_PAGE)
+            return
 
         val onSuccess = { newBeers: MutableList<Beer> ->
             beers.addAll(itemsCount, newBeers)
