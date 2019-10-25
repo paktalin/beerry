@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.getFavoriteBeers
+import com.paktalin.beerapp.ui.home.BeerAdapter
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class FavoriteFragment : Fragment() {
 
-    var beers: MutableList<Beer>? = null
+    var beers = mutableListOf<Beer>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -25,6 +27,7 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_favorite, container, false)
+        root.recycler_view_all.adapter = BeerAdapter(beers)
         return root
     }
 }

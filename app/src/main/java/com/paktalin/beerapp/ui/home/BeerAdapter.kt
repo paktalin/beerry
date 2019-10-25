@@ -18,12 +18,10 @@ import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
-class BeerAdapter(
-    private val beers: MutableList<Beer>,
-    private val loadMoreBeer: () -> Unit
-) : RecyclerView.Adapter<RecyclerViewHolder>() {
+open class BeerAdapter(
+    protected val beers: MutableList<Beer>) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
-    private var context: Context? = null
+    protected var context: Context? = null
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
@@ -41,22 +39,12 @@ class BeerAdapter(
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val beer = beers[position]
         with(holder) {
-            if (position == itemCount - 1)
-                loadMoreBeer() // reached the end, loading more
             tvName.text = beer.name
             setSpec(tvAbvTitle, tvAbv, beer.abv, "##.#'%'")
             setSpec(tvIbuTitle, tvIbu, beer.ibu, "###")
             setLayoutColor(beer.ebc, this)
             setImage(beer.imageUrl, holder.imageView)
-            buttonFavorite.isSelected = beer.isFavorite
-            buttonFavorite.setOnClickListener {
-                if (!it.isSelected)
-                    context?.addToFavorite(beer)
-                else
-                    context?.removeFromFavorite(beer)
-                beer.isFavorite = !beer.isFavorite
-                it.isSelected = !it.isSelected
-            }
+            buttonFavorite.visibility = View.GONE
         }
     }
 

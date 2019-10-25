@@ -36,7 +36,7 @@ class HomeFragment: Fragment() {
         savedInstanceState?.restoreState()
         reloadBeer()
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        root.recycler_view_all.adapter = BeerAdapter(beers) { loadMoreBeer() }
+        root.recycler_view_all.adapter = BeerAdapterHome(beers) { loadMoreBeer() }
         root.button_filter.setOnClickListener { showFilterDialog() }
         return root
     }
