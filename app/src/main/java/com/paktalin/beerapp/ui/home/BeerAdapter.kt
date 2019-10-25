@@ -11,9 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
+import com.paktalin.beerapp.removeFromFavorite
+import com.paktalin.beerapp.saveAsFavorite
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_layout.view.*
 import java.text.DecimalFormat
 
 class BeerAdapter(
@@ -46,6 +49,13 @@ class BeerAdapter(
             setImage(beer.imageUrl, holder.imageView)
             if (position == itemCount - 1)
                 loadMoreBeer() // reached the end, loading more
+            itemView.button_add_to_favorite.setOnClickListener {
+                if (!it.isSelected)
+                    context?.saveAsFavorite(beer)
+                else
+                    context?.removeFromFavorite(beer)
+                it.isSelected = !it.isSelected
+            }
         }
     }
 
@@ -110,7 +120,6 @@ class BeerAdapter(
             holder.tvIbu.setTextColor(textColor)
             holder.tvAbvTitle.setTextColor(titleTextColor)
             holder.tvIbuTitle.setTextColor(titleTextColor)
-
         }
     }
 }
