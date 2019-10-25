@@ -32,10 +32,7 @@ fun Context.removeFromFavorite(beer: Beer) {
 
 fun Context.getFavoriteBeers(): MutableList<Beer>? {
     val favoritesJson = getJsonArray(this) ?: return null
-    val beers = mutableListOf<Beer>()
-    for (i in 0 until favoritesJson.length())
-        beers.add(Beer(favoritesJson.getJSONObject(i)))
-    return beers
+    return Beer.beersFromJsonArray(favoritesJson)
 }
 
 private fun updateFavorite(oldFavorite: String?, beer: Beer): String {

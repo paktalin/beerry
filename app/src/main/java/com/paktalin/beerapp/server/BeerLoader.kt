@@ -28,21 +28,15 @@ class BeerLoader(beerFilter: BeerFilter?) {
 
     fun loadBeers(onSuccess: (MutableList<Beer>) -> Unit, page: Int = 1) {
         val request = JsonArrayRequest(beerListUrl(page),
-            { onSuccess(processResponse(it)) },
+            { onSuccess(Beer.beersFromJsonArray(it)) },
             {
                 val data = CacheApp.instance?.cache()?.get(beerListUrl(page))?.data
-                data?.let { onSuccess(processResponse(JSONArray(String(data)))) }
+                data?.let {
+                    val beers = Beer.beersFromJsonArray(JSONArray(String(data)))
+                    onSuccess(beers)
+                }
             }
         )
         CacheApp.instance?.addToRequestQueue(request, beerListUrl(page))
-    }
-
-    private fun processResponse(jsonArray: JSONArray): MutableList<Beer> {
-        val beers = mutableListOf<Beer>()
-        for (i in 0 until jsonArray.length()) {
-            val beer = Beer(jsonArray.getJSONObject(i))
-            beers.add(beer)
-        }
-        return beers
     }
 }

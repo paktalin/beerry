@@ -1,5 +1,6 @@
 package com.paktalin.beerapp
 
+import org.json.JSONArray
 import org.json.JSONObject
 
 const val KEY_BEER_ID = "id"
@@ -36,5 +37,14 @@ data class Beer(
             .put(KEY_ABV, abv)
             .put(KEY_IBU, ibu)
             .put(KEY_EBC, ebc)
+    }
+
+    companion object {
+        fun beersFromJsonArray(jsonArray: JSONArray): MutableList<Beer> {
+            val beers = mutableListOf<Beer>()
+            for (i in 0 until jsonArray.length())
+                beers.add(Beer(jsonArray.getJSONObject(i)))
+            return beers
+        }
     }
 }

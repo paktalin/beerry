@@ -9,23 +9,26 @@ import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.BeerFilter
 import com.paktalin.beerapp.R
 import com.paktalin.beerapp.server.BeerLoader
+import com.paktalin.beerapp.server.BeerLoader.Companion.BEER_PER_PAGE
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 private const val KEY_BEER_FILTER = "beer_filter"
+private const val KEY_IS_LAST_PAGE = "is_last_page"
 
 class HomeFragment: Fragment() {
     private var beers = mutableListOf<Beer>()
     private var beerFilter: BeerFilter? = null
+    private var isLastPage = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        savedInstanceState?.apply { beerFilter = getSerializable(KEY_BEER_FILTER) as BeerFilter? }
-        loadNewBeer()
+        savedInstanceState?.restoreState()
+        reloadBeer()
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        root.recycler_view_all.adapter = BeerAdapter(beers) { loadNewBeer() }
+        root.recycler_view_all.adapter = BeerAdapter(beers) { loadMoreBeer() }
         root.button_filter.setOnClickListener { showFilterDialog() }
         return root
     }
@@ -33,6 +36,12 @@ class HomeFragment: Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putSerializable(KEY_BEER_FILTER, beerFilter)
+        outState.putBoolean(KEY_IS_LAST_PAGE, isLastPage)
+    }
+
+    private fun Bundle.restoreState() {
+        beerFilter = getSerializable(KEY_BEER_FILTER) as BeerFilter?
+        isLastPage = getBoolean(KEY_IS_LAST_PAGE, false)
     }
 
     private fun showFilterDialog() {
@@ -46,25 +55,26 @@ class HomeFragment: Fragment() {
     }
 
     private fun reloadBeer() {
+        isLastPage = false
         beers.clear()
         BeerLoader(beerFilter).loadBeers({ newBeers ->
-            beers.addAll(0, newBeers)
-            view?.recycler_view_all?.adapter?.notifyDataSetChanged()
+            if (newBeers.size < BEER_PER_PAGE)
+                isLastPage = true
+            onBeerLoaded(newBeers, 0)
         })
     }
 
-    private fun loadNewBeer() {
+    private fun loadMoreBeer() {
+        if (isLastPage) return
+
         val itemsCount = beers.size
         val page = BeerLoader.nextPage(itemsCount)
-        // return if the current page was the last
-        if (itemsCount != 0 && itemsCount < (page - 1) * BeerLoader.BEER_PER_PAGE)
-            return
+        BeerLoader(beerFilter).loadBeers({ newBeers -> onBeerLoaded(newBeers, itemsCount) }, page)
+    }
 
-        val onSuccess = { newBeers: MutableList<Beer> ->
-            beers.addAll(itemsCount, newBeers)
-            view?.recycler_view_all?.adapter?.notifyItemInserted(itemsCount)
-        }
-        BeerLoader(beerFilter).loadBeers({ newBeers -> onSuccess(newBeers) }, page)
+    private fun onBeerLoaded(newBeers: MutableList<Beer>, index: Int) {
+        beers.addAll(index, newBeers)
+        view?.recycler_view_all?.adapter?.notifyItemInserted(index)
     }
 }
 
