@@ -50,4 +50,9 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="CollapsingToolbarLayoutExpandedTextStyle" parent="AppTheme">
+        <item name="android:textSize">24sp</item>
+        <item name="android:inputType">textMultiLine</item>
+    </style>
+
 </resources>

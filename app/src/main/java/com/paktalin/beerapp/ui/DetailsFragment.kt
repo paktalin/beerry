@@ -1,23 +1,29 @@
 package com.paktalin.beerapp.ui
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.paktalin.beerapp.*
+import com.paktalin.beerapp.Beer
+import com.paktalin.beerapp.R
+import com.paktalin.beerapp.addToFavorite
+import com.paktalin.beerapp.removeFromFavorite
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detais.view.*
 
-class DetailsFragment: Fragment() {
+class DetailsFragment : Fragment() {
 
     private lateinit var beer: Beer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         beer = arguments?.getSerializable(KEY_BEER) as Beer
     }
 
@@ -27,13 +33,14 @@ class DetailsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detais, container, false)
-        view.tv_beer_name.text = beer.name
+        view.collapsing_toolbar.title = beer.name
 
         beer.colorSet?.apply {
-            view.tv_beer_name.setTextColor(textColor)
-            view?.view_color?.setBackgroundColor(backgroundColor)
+            view.collapsing_toolbar.setExpandedTitleTextColor(ColorStateList.valueOf(textColor))
+            view.collapsing_toolbar.setCollapsedTitleTextColor(textColor)
+            view.view_color?.setBackgroundColor(backgroundColor)
+            view.collapsing_toolbar.setContentScrimColor(backgroundColor)
         }
-
 
         with(view.button_add_to_favorite) {
             isSelected = beer.isFavorite
@@ -47,9 +54,9 @@ class DetailsFragment: Fragment() {
             }
         }
 
-            Picasso.with(context)
-                .load(beer.imageUrl)
-                .into(view.image_beer)
-            return view
+        Picasso.with(context)
+            .load(beer.imageUrl)
+            .into(view.image_beer)
+        return view
     }
 }
