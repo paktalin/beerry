@@ -12,6 +12,16 @@
     <string name="favorite_transition_name">favorite_transition</string>
     <string name="title_color">Color</string>
     <string name="title_bitterness">Bitterness</string>
-    <string name="title_alcohol_by_volume">Alcohol By Volume</string>
+    <string name="title_alcohol_by_volume">Alcohol By Volume (ABV)</string>
+    <string name="title_characteristics">Characteristics</string>
+    <string name="title_ibu">IBU</string>
+    <string name="title_ebc">EBC</string>
+    <string name="title_fg">Final Gravity (FG)</string>
+    <string name="title_og">Original Gravity (OG)</string>
+    <string name="title_srm">SRM</string>
+    <string name="title_ph">pH</string>
+    <string name="title_attenuation_level">Attenuation Level</string>
+    <string name="title_volume">Volume</string>
+    <string name="title_boil_volume">Boil Volume</string>
 
 </resources>

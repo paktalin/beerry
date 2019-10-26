@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -8,16 +9,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:background="@color/colorSecondarySemitransparent"
         android:orientation="horizontal">
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/SubtitleStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Characteristics" />
+            android:text="@string/title_characteristics" />
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -25,13 +25,294 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_expand_more_24px" />
+            app:srcCompat="@drawable/ic_expand_more_24px"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/characteristics_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_alcohol_by_volume"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_abv_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1012"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_ibu"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_ibu_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1012"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_ebc"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_ebc_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1012"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_fg"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_fg_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1012"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_og"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_og_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1060"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_srm"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_srm_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_ph"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_ph_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.4"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_attenuation_level"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_attenuation_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="80"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_volume"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_volume_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="80"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_boil_volume"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_boil_volume_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="80"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

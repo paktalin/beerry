@@ -6,6 +6,8 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
@@ -33,6 +35,8 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detais, container, false)
+        (activity as AppCompatActivity).setSupportActionBar(view.toolbar as Toolbar)
+
         view.collapsing_toolbar.title = beer.name
 
         beer.colorSet?.apply {
