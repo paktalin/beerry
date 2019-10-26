@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_home.view.*
 private const val KEY_BEER_FILTER = "beer_filter"
 private const val KEY_IS_LAST_PAGE = "is_last_page"
 
-class HomeFragment: Fragment() {
+class HomeFragment : Fragment() {
     private var beers = mutableListOf<Beer>()
     private var beerFilter: BeerFilter? = null
     private var isLastPage = false
@@ -88,7 +88,11 @@ class HomeFragment: Fragment() {
 
         val itemsCount = beers.size
         val page = BeerLoader.nextPage(itemsCount)
-        BeerLoader(beerFilter).loadBeers({ newBeers -> onBeerLoaded(newBeers, itemsCount) }, favoriteBeers, page)
+        BeerLoader(beerFilter).loadBeers(
+            { newBeers -> onBeerLoaded(newBeers, itemsCount) },
+            favoriteBeers,
+            page
+        )
     }
 
     private fun onBeerLoaded(newBeers: MutableList<Beer>, index: Int) {

@@ -1,16 +1,13 @@
 package com.paktalin.beerapp.ui.home
 
 import android.view.View
-import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.addToFavorite
-import com.paktalin.beerapp.removeFromFavorite
+import com.paktalin.beerapp.*
 import com.paktalin.beerapp.ui.BeerAdapter
 import com.paktalin.beerapp.ui.RecyclerViewHolder
 
 class BeerAdapterHome(
     beers: MutableList<Beer>,
-    private val loadMoreBeer: () -> Unit
-) : BeerAdapter(beers) {
+    private val loadMoreBeer: () -> Unit) : BeerAdapter(beers) {
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)

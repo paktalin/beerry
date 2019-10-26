@@ -1,6 +1,5 @@
 package com.paktalin.beerapp
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -15,12 +14,5 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
         navigation_view.setupWithNavController(navController)
-
-
-        val sharedPref: SharedPreferences = getSharedPreferences("my_pref", 0)
-        val editor = sharedPref.edit()
-        editor.putBoolean("test", true)
-        editor.apply()
     }
-
 }

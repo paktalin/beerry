@@ -1,6 +1,9 @@
 package com.paktalin.beerapp.ui
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
+import com.paktalin.beerapp.KEY_IMAGE_URL
 import com.paktalin.beerapp.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
@@ -16,7 +20,8 @@ import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
 open class BeerAdapter(
-    protected val beers: MutableList<Beer>) : RecyclerView.Adapter<RecyclerViewHolder>() {
+    protected val beers: MutableList<Beer>
+) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
     protected var context: Context? = null
 
@@ -36,14 +41,27 @@ open class BeerAdapter(
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val beer = beers[position]
         with(holder) {
-            progress .visibility = View.VISIBLE
+            progress.visibility = View.VISIBLE
             tvName.text = beer.name
             setSpec(tvAbvTitle, tvAbv, beer.abv, "##.#'%'")
             setSpec(tvIbuTitle, tvIbu, beer.ibu, "###")
             setLayoutColor(beer.ebc, this)
             setImage(beer.imageUrl, holder)
             buttonFavorite.visibility = View.GONE
+            holder.itemView.setOnClickListener { openDetailsWithTransition(holder, beer) }
         }
+    }
+
+    private fun openDetailsWithTransition(holder: RecyclerViewHolder, beer: Beer) {
+        val options = ActivityOptions.makeSceneTransitionAnimation(
+            context as Activity,
+            holder.imageView,
+            context?.resources?.getString(R.string.beer_image_transition_name)
+        )
+
+        val intent = Intent(context, DetailsActivity::class.java)
+        intent.putExtra(KEY_IMAGE_URL, beer.imageUrl)
+        (context as Activity).startActivity(intent, options.toBundle())
     }
 
     private fun setImage(imageUrl: String, holder: RecyclerViewHolder) {
@@ -54,6 +72,7 @@ open class BeerAdapter(
                 override fun onSuccess() {
                     holder.progress.visibility = View.GONE
                 }
+
                 override fun onError() {
                     holder.progress.visibility = View.GONE
                     Picasso.with(context)

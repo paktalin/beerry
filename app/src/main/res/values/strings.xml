@@ -8,5 +8,6 @@
     <string name="ebc_selection">EBC from %1$s to %2$s</string>
     <string name="no_matches">No such beers!</string>
     <string name="filter">Filter again</string>
+    <string name="beer_image_transition_name">beer_image_transition</string>
 
 </resources>
