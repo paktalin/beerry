@@ -1,7 +1,9 @@
 package com.paktalin.beerapp
 
+import com.paktalin.beerapp.ui.BeerColorSet
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.Serializable
 
 const val KEY_BEER_ID = "id"
 const val KEY_BEER_NAME = "name"
@@ -17,9 +19,11 @@ data class Beer(
     val imageUrl: String,
     val abv: Double?,
     val ibu: Double?,
-    val ebc: Double?,
+    val ebc: Double?): Serializable {
+
     var isFavorite: Boolean = false
-) {
+    var colorSet: BeerColorSet? = null
+
     constructor(jsonObject: JSONObject) : this(
         jsonObject.getLong(KEY_BEER_ID),
         jsonObject.getString(KEY_BEER_NAME),

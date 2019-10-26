@@ -6,6 +6,16 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/view_color"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/image_beer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/image_beer"
         android:layout_width="wrap_content"
@@ -14,8 +24,22 @@
         android:layout_marginTop="8dp"
         android:fitsSystemWindows="true"
         android:scaleType="fitCenter"
-        android:transitionName="details_transition"
+        android:transitionName="@string/beer_image_transition_name"
         app:layout_collapseMode="parallax"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/button_add_to_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/add_to_favorite"
+        android:transitionName="@string/favorite_transition_name"
+        app:backgroundTint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_color"
+        app:maxImageSize="32dp"
+        app:tint="@color/add_to_favorite_fab" />
 </androidx.constraintlayout.widget.ConstraintLayout>

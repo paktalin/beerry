@@ -16,22 +16,19 @@ class BeerAdapterHome(
             if (position == itemCount - 1)
                 loadMoreBeer() // reached the end, loading more
 
-            if(beer.isFavorite) {
-                buttonFavorite.alpha = 1f
-                buttonFavorite.isSelected = true
-            } else {
-                buttonFavorite.alpha = 0.6f
-                buttonFavorite.isSelected = false
-            }
-            buttonFavorite.visibility = View.VISIBLE
-            buttonFavorite.setOnClickListener {
-                if (!it.isSelected)
-                    context?.addToFavorite(beer)
-                else
-                    context?.removeFromFavorite(beer)
-                beer.isFavorite = !beer.isFavorite
-                it.isSelected = !it.isSelected
-                it.alpha = if (it.isSelected) 1f else 0.6f
+            with(buttonFavorite) {
+                isSelected = beer.isFavorite
+                alpha = if(beer.isFavorite) 1f else 0.6f
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    if (!isSelected)
+                        context?.addToFavorite(beer)
+                    else
+                        context?.removeFromFavorite(beer)
+                    beer.isFavorite = !beer.isFavorite
+                    isSelected = !isSelected
+                    alpha = if (isSelected) 1f else 0.6f
+                }
             }
         }
     }

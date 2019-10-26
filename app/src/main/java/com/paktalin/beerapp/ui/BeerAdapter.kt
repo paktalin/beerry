@@ -2,6 +2,7 @@ package com.paktalin.beerapp.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
+
+const val KEY_BEER = "beer"
 
 open class BeerAdapter(
     protected val beers: MutableList<Beer>
@@ -44,7 +47,7 @@ open class BeerAdapter(
             tvName.text = beer.name
             setSpec(tvAbvTitle, tvAbv, beer.abv, "##.#'%'")
             setSpec(tvIbuTitle, tvIbu, beer.ibu, "###")
-            setLayoutColor(beer.ebc, this)
+            setLayoutColor(this, beer)
             setImage(beer.imageUrl, holder)
             buttonFavorite.visibility = View.GONE
             holder.itemView.setOnClickListener { openDetailsWithTransition(holder, beer) }
@@ -52,9 +55,15 @@ open class BeerAdapter(
     }
 
     private fun openDetailsWithTransition(holder: RecyclerViewHolder, beer: Beer) {
-        holder.imageView.transitionName = "details_transition"
-        val extras = FragmentNavigatorExtras(holder.imageView to "details_transition")
-        (context as AppCompatActivity).findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_details, null, null, extras)
+        holder.imageView.transitionName = context?.resources?.getString(R.string.beer_image_transition_name)
+        holder.buttonFavorite.transitionName = context?.resources?.getString(R.string.favorite_transition_name)
+
+        val extras = FragmentNavigatorExtras(
+            holder.imageView to holder.imageView.transitionName,
+            holder.buttonFavorite to holder.buttonFavorite.transitionName
+        )
+        val args = Bundle().apply { putSerializable(KEY_BEER, beer) }
+        (context as AppCompatActivity).findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_details, args, null, extras)
     }
 
     private fun setImage(imageUrl: String, holder: RecyclerViewHolder) {
@@ -86,11 +95,11 @@ open class BeerAdapter(
         }
     }
 
-    private fun setLayoutColor(ebc: Double?, holder: RecyclerViewHolder) {
+    private fun setLayoutColor(holder: RecyclerViewHolder, beer: Beer) {
         val textColor: Int?
         val titleTextColor: Int?
         // if background is dark, set light text colors and higher contrast text color for labels
-        if (ebc == null || ebc.isNaN() || ebc > 33.0) {
+        if (beer.ebc == null || beer.ebc.isNaN() || beer.ebc > 33.0) {
             textColor = Color.WHITE
             titleTextColor = Color.BLACK
         } else {
@@ -100,7 +109,7 @@ open class BeerAdapter(
         context?.let { context ->
 
             val layoutColors = context.resources.getIntArray(R.array.ebc_colors)
-            val layoutColor = when (ebc) {
+            val layoutColorId = when (beer.ebc) {
                 null -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
                 in 0.0..4.0 -> layoutColors[0]
                 in 4.0..6.0 -> layoutColors[1]
@@ -117,11 +126,12 @@ open class BeerAdapter(
                 in 69.0..Double.POSITIVE_INFINITY -> layoutColors[12]
                 else -> ContextCompat.getColor(context, R.color.colorSecondaryLight)
             }
-            holder.layoutSpecs.setBackgroundColor(layoutColor)
+            holder.layoutSpecs.setBackgroundColor(layoutColorId)
             holder.tvAbv.setTextColor(textColor)
             holder.tvIbu.setTextColor(textColor)
             holder.tvAbvTitle.setTextColor(titleTextColor)
             holder.tvIbuTitle.setTextColor(titleTextColor)
+            beer.colorSet = BeerColorSet(layoutColorId, textColor, titleTextColor)
         }
     }
 }

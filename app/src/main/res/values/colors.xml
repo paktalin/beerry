@@ -8,6 +8,7 @@
     <color name="colorSecondarySemitransparent">#20121212</color>
     <color name="colorFavorite">#d32f2f</color>
     <color name="colorBackground">#121212</color>
+    <color name="colorBackground_alpha_60">#96121212</color>
 
     <array name="ebc_colors">
         <!--ebc 4-->
