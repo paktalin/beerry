@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         android:fitsSystemWindows="true"
         android:scaleType="fitCenter"
-        android:transitionName="@string/beer_image_transition_name"
+        android:transitionName="details_transition"
         app:layout_collapseMode="parallax"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

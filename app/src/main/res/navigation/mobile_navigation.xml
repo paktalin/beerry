@@ -10,10 +10,11 @@
         android:name="com.paktalin.beerapp.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
-        <argument
-            android:name="test"
-            app:argType="string"
-            android:defaultValue="my test string" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_details"
+            app:destination="@id/navigation_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
@@ -28,4 +29,9 @@
         android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite">
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_details"
+        android:name="com.paktalin.beerapp.ui.DetailsFragment"
+        tools:layout="@layout/fragment_detais" />
 </navigation>

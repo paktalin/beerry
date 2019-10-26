@@ -1,18 +1,17 @@
 package com.paktalin.beerapp.ui
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.KEY_IMAGE_URL
 import com.paktalin.beerapp.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
@@ -53,15 +52,9 @@ open class BeerAdapter(
     }
 
     private fun openDetailsWithTransition(holder: RecyclerViewHolder, beer: Beer) {
-        val options = ActivityOptions.makeSceneTransitionAnimation(
-            context as Activity,
-            holder.imageView,
-            context?.resources?.getString(R.string.beer_image_transition_name)
-        )
-
-        val intent = Intent(context, DetailsActivity::class.java)
-        intent.putExtra(KEY_IMAGE_URL, beer.imageUrl)
-        (context as Activity).startActivity(intent, options.toBundle())
+        holder.imageView.transitionName = "details_transition"
+        val extras = FragmentNavigatorExtras(holder.imageView to "details_transition")
+        (context as AppCompatActivity).findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_details, null, null, extras)
     }
 
     private fun setImage(imageUrl: String, holder: RecyclerViewHolder) {
