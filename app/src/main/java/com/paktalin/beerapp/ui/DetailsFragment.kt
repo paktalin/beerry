@@ -27,7 +27,12 @@ class DetailsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_detais, container, false)
-        beer.colorSet?.backgroundColor?.let { view?.view_color?.setBackgroundColor(it) }
+        view.tv_beer_name.text = beer.name
+
+        beer.colorSet?.apply {
+            view.tv_beer_name.setTextColor(textColor)
+            view?.view_color?.setBackgroundColor(backgroundColor)
+        }
 
 
         with(view.button_add_to_favorite) {

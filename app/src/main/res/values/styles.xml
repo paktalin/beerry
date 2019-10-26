@@ -40,4 +40,14 @@
         <item name="android:windowEnterTransition">@transition/detail_enter</item>
     </style>
 
+    <style name="SubtitleStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Overline</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

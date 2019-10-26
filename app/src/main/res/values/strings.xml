@@ -10,5 +10,8 @@
     <string name="filter">Filter again</string>
     <string name="beer_image_transition_name">beer_image_transition</string>
     <string name="favorite_transition_name">favorite_transition</string>
+    <string name="title_color">Color</string>
+    <string name="title_bitterness">Bitterness</string>
+    <string name="title_alcohol_by_volume">Alcohol By Volume</string>
 
 </resources>
