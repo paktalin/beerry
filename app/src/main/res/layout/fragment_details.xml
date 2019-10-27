@@ -55,7 +55,6 @@
                     app:layout_constraintBottom_toBottomOf="@id/view_color"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@id/view_color"
-                    app:srcCompat="@drawable/beer_image_debug"
                     tools:ignore="ContentDescription" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -17,7 +17,7 @@ import com.paktalin.beerapp.ui.format
 import com.paktalin.beerapp.ui.formatAbv
 import com.paktalin.beerapp.ui.formatUnits
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_detais.view.*
+import kotlinx.android.synthetic.main.fragment_details.view.*
 import kotlinx.android.synthetic.main.layout_brewers_tips.view.*
 import kotlinx.android.synthetic.main.layout_characteristics.view.*
 import kotlinx.android.synthetic.main.layout_food_pairing.view.*
@@ -41,11 +41,12 @@ class DetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_detais, container, false)
+        val view = inflater.inflate(R.layout.fragment_details, container, false)
         with(view) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
-            Picasso.with(context).load(beer.imageUrl).into(image_beer)
+            Picasso.with(context).load(beer.imageUrl).error(context?.getDrawable(R.drawable.icon)).into(image_beer)
             setUpButtonFavorite(button_add_to_favorite)
+            activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
             setUpColors()
             setUpExpandButtons()

@@ -69,6 +69,7 @@ open class BeerAdapter(
         Picasso.with(context)
             .load(imageUrl)
             .networkPolicy(NetworkPolicy.OFFLINE)
+            .error(context?.getDrawable(R.drawable.icon))
             .into(holder.imageView, object : Callback {
                 override fun onSuccess() {
                     holder.progress.visibility = View.GONE
@@ -78,6 +79,7 @@ open class BeerAdapter(
                     holder.progress.visibility = View.GONE
                     Picasso.with(context)
                         .load(imageUrl)
+                        .error(context?.getDrawable(R.drawable.icon))
                         .into(holder.imageView)
                 }
             })

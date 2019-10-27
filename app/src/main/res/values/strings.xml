@@ -28,5 +28,7 @@
     <string name="title_brewers_tips">Brewers Tips</string>
     <string name="title_first_brewed">First Brewed</string>
     <string name="unspecified">Unspecified</string>
+    <string name="go_browse">Go browse</string>
+    <string name="you_haven_t_added_any_beer_to_favorite">You haven\'t added any beer to favorite!</string>
 
 </resources>

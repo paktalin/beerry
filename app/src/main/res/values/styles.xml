@@ -29,17 +29,6 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
-    <style name="AppTheme.Main">
-        <item name="android:windowExitTransition">@transition/main_exit</item>
-        <item name="android:windowReenterTransition">@transition/main_reenter</item>
-    </style>
-
-    <style name="AppTheme.Detail">
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="android:windowEnterTransition">@transition/detail_enter</item>
-    </style>
-
     <style name="SubtitleStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:paddingEnd">24dp</item>
         <item name="android:paddingStart">24dp</item>
