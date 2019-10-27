@@ -24,15 +24,6 @@ class FavoriteFragment : Fragment() {
         beers = context.getFavoriteBeers().apply { forEach { beer -> beer.isFavorite = true } }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
-
-        exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
-        reenterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
-        returnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
