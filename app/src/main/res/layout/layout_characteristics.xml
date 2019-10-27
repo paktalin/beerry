@@ -20,22 +20,53 @@
             android:text="@string/title_characteristics" />
 
         <ImageButton
+            android:id="@+id/button_expand_characteristics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/ic_expand_more_24px"
+            app:srcCompat="@drawable/button_expand"
             tools:ignore="ContentDescription" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/characteristics_details"
+        android:id="@+id/characteristics_expanded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_first_brewed"
+                android:textColor="@android:color/secondary_text_light" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_first_brewed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1012"
+                android:textColor="@android:color/secondary_text_light" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSecondarySemitransparent" />
 
         <LinearLayout
             android:layout_width="match_parent"
