@@ -134,6 +134,7 @@ class Beer constructor(val id: Long,
             .put(KEY_TAGLINE, tagline)
             .put(KEY_DESCRIPTION, description)
             .put(KEY_BREWERS_TIPS, brewersTips)
+            .put(KEY_FOOD_PAIRINGS, JSONArray().apply { foodPairings?.forEach { pairing -> put(pairing) } })
     }
 
     companion object {
