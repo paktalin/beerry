@@ -20,9 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:expandedTitleGravity="center_vertical|end"
+            app:expandedTitleGravity="center_vertical|center_horizontal"
             app:expandedTitleMarginStart="152dp"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
+            android:transitionName="@string/color_transition_name"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout

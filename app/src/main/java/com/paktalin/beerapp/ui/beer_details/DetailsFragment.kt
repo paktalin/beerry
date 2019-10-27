@@ -16,6 +16,7 @@ import com.paktalin.beerapp.ui.KEY_BEER
 import com.paktalin.beerapp.ui.format
 import com.paktalin.beerapp.ui.formatAbv
 import com.paktalin.beerapp.ui.formatUnits
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import kotlinx.android.synthetic.main.layout_brewers_tips.view.*
@@ -44,15 +45,27 @@ class DetailsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         with(view) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
-            Picasso.with(context).load(beer.imageUrl).error(context?.getDrawable(R.drawable.icon)).into(image_beer)
-            setUpButtonFavorite(button_add_to_favorite)
-            activity?.actionBar?.setDisplayHomeAsUpEnabled(true)
 
+            setUpButtonFavorite(button_add_to_favorite)
+
+            setUpImage()
             setUpColors()
             setUpExpandButtons()
             setUpBeerTextData()
         }
         return view
+    }
+
+    private fun View.setUpImage() {
+        Picasso.with(context).load(beer.imageUrl).error(context?.getDrawable(R.drawable.beer_icon)).into(image_beer, object : Callback {
+            override fun onSuccess() {
+                parentFragment?.startPostponedEnterTransition()
+            }
+
+            override fun onError() {
+                parentFragment?.startPostponedEnterTransition()
+            }
+        })
     }
 
     private fun View.setUpBeerTextData() {

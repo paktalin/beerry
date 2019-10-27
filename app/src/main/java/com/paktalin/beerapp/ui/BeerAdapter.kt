@@ -49,27 +49,30 @@ open class BeerAdapter(
             setLayoutColor(this, beer)
             setImage(beer.imageUrl, holder)
             buttonFavorite.visibility = View.GONE
-            holder.itemView.setOnClickListener { openDetailsWithTransition(holder, beer) }
+            touchView.setOnClickListener { openDetailsWithTransition(beer) }
         }
     }
 
-    private fun openDetailsWithTransition(holder: RecyclerViewHolder, beer: Beer) {
-        holder.imageView.transitionName = context?.resources?.getString(R.string.beer_image_transition_name)
-        holder.buttonFavorite.transitionName = context?.resources?.getString(R.string.favorite_transition_name)
+    private fun RecyclerViewHolder.openDetailsWithTransition(beer: Beer) {
+        imageView.transitionName = context?.resources?.getString(R.string.beer_image_transition_name)
+        buttonFavorite.transitionName = context?.resources?.getString(R.string.favorite_transition_name)
+        layoutSpecs.transitionName = context?.resources?.getString(R.string.color_transition_name)
 
         val extras = FragmentNavigatorExtras(
-            holder.imageView to holder.imageView.transitionName,
-            holder.buttonFavorite to holder.buttonFavorite.transitionName
+            imageView to imageView.transitionName,
+            buttonFavorite to buttonFavorite.transitionName,
+            layoutSpecs to layoutSpecs.transitionName
         )
         val args = Bundle().apply { putSerializable(KEY_BEER, beer) }
-        (context as AppCompatActivity).findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_details, args, null, extras)
+        (context as AppCompatActivity).findNavController(R.id.nav_host_fragment)
+            .navigate(R.id.navigation_details, args, null, extras)
     }
 
     private fun setImage(imageUrl: String?, holder: RecyclerViewHolder) {
         Picasso.with(context)
             .load(imageUrl)
             .networkPolicy(NetworkPolicy.OFFLINE)
-            .error(context?.getDrawable(R.drawable.icon))
+            .error(context?.getDrawable(R.drawable.beer_icon))
             .into(holder.imageView, object : Callback {
                 override fun onSuccess() {
                     holder.progress.visibility = View.GONE
@@ -79,7 +82,7 @@ open class BeerAdapter(
                     holder.progress.visibility = View.GONE
                     Picasso.with(context)
                         .load(imageUrl)
-                        .error(context?.getDrawable(R.drawable.icon))
+                        .error(context?.getDrawable(R.drawable.beer_icon))
                         .into(holder.imageView)
                 }
             })

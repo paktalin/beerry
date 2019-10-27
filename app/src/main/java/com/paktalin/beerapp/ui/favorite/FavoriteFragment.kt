@@ -2,6 +2,7 @@ package com.paktalin.beerapp.ui.favorite
 
 import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,15 @@ class FavoriteFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         beers = context.getFavoriteBeers().apply { forEach { beer -> beer.isFavorite = true } }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
+
+        exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
+        reenterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
+        returnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.slide_left)
     }
 
     override fun onCreateView(
