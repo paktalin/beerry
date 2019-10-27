@@ -103,7 +103,7 @@ class DetailsFragment : Fragment() {
         button_expand_food_pairing.setExpandableButton(food_pairing_expanded)
     }
 
-    private fun ImageButton.setExpandableButton(expandableView: View) {
+    private fun View.setExpandableButton(expandableView: View) {
         setOnClickListener {
             it.isSelected = !it.isSelected
             expandableView.visibility = if (it.isSelected) View.VISIBLE else View.GONE
