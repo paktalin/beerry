@@ -6,17 +6,19 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.marginStart
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.paktalin.beerapp.*
+import com.paktalin.beerapp.Beer
+import com.paktalin.beerapp.R
+import com.paktalin.beerapp.addToFavorite
+import com.paktalin.beerapp.removeFromFavorite
 import com.paktalin.beerapp.ui.KEY_BEER
 import com.paktalin.beerapp.ui.format
 import com.paktalin.beerapp.ui.formatAbv
 import com.paktalin.beerapp.ui.formatUnits
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import kotlinx.android.synthetic.main.layout_brewers_tips.view.*
@@ -45,9 +47,8 @@ class DetailsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         with(view) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
-
-            setUpButtonFavorite(button_add_to_favorite)
-
+            image_beer.post { setUpCollapsingToolbarMargin() }
+            button_add_to_favorite.setUpButtonFavorite()
             setUpImage()
             setUpColors()
             setUpExpandButtons()
@@ -57,15 +58,14 @@ class DetailsFragment : Fragment() {
     }
 
     private fun View.setUpImage() {
-        Picasso.with(context).load(beer.imageUrl).error(context?.getDrawable(R.drawable.beer_icon)).into(image_beer, object : Callback {
-            override fun onSuccess() {
-                parentFragment?.startPostponedEnterTransition()
-            }
+        Picasso.with(context).load(beer.imageUrl).error(context?.getDrawable(R.drawable.beer_icon))
+            .into(image_beer)
+    }
 
-            override fun onError() {
-                parentFragment?.startPostponedEnterTransition()
-            }
-        })
+    private fun View.setUpCollapsingToolbarMargin() {
+        val marginStart = image_beer.width + 2 * image_beer.marginStart
+        collapsing_toolbar.expandedTitleMarginStart = marginStart
+        parentFragment?.startPostponedEnterTransition()
     }
 
     private fun View.setUpBeerTextData() {
@@ -80,8 +80,12 @@ class DetailsFragment : Fragment() {
         tv_srm_value.text = beer.srm?.format() ?: unspecified
         tv_ph_value.text = beer.ph?.format() ?: unspecified
         tv_attenuation_value.text = beer.attenuation?.format() ?: unspecified
-        tv_volume_value.text = beer.volume?.format()?.let { "$it${beer.volumeUnit?.formatUnits().orEmpty() }" } ?: unspecified
-        tv_boil_volume_value.text = beer.boilVolume?.format()?.let { "$it${beer.boilVolumeUnit?.formatUnits().orEmpty() }" } ?: unspecified
+        tv_volume_value.text =
+            beer.volume?.format()?.let { "$it${beer.volumeUnit?.formatUnits().orEmpty()}" }
+                ?: unspecified
+        tv_boil_volume_value.text =
+            beer.boilVolume?.format()?.let { "$it${beer.boilVolumeUnit?.formatUnits().orEmpty()}" }
+                ?: unspecified
 
         tv_description.text = beer.description
         brewers_tips_expanded.text = beer.brewersTips
@@ -120,17 +124,15 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun setUpButtonFavorite(button: FloatingActionButton) {
-        with(button) {
-            isSelected = beer.isFavorite
-            setOnClickListener {
-                if (!isSelected)
-                    context?.addToFavorite(beer)
-                else
-                    context?.removeFromFavorite(beer)
-                beer.isFavorite = !beer.isFavorite
-                isSelected = !isSelected
-            }
+    private fun FloatingActionButton.setUpButtonFavorite() {
+        isSelected = beer.isFavorite
+        setOnClickListener {
+            if (!isSelected)
+                context?.addToFavorite(beer)
+            else
+                context?.removeFromFavorite(beer)
+            beer.isFavorite = !beer.isFavorite
+            isSelected = !isSelected
         }
     }
 }

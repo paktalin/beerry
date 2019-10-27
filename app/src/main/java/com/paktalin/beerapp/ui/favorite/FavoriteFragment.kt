@@ -14,6 +14,7 @@ import com.paktalin.beerapp.getFavoriteBeers
 import com.paktalin.beerapp.ui.BeerAdapter
 import kotlinx.android.synthetic.main.fragment_favorite.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.recycler_view_all
+import kotlinx.android.synthetic.main.layout_no_favorites.view.*
 
 class FavoriteFragment : Fragment() {
 
@@ -34,7 +35,7 @@ class FavoriteFragment : Fragment() {
 
         if(beers.isEmpty()) {
             view.layout_no_favorites.visibility = View.VISIBLE
-            view.button_browse.setOnClickListener { activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.navigation_home) }
+            view.layout_no_favorites.button_browse.setOnClickListener { activity?.findNavController(R.id.nav_host_fragment)?.navigate(R.id.navigation_home) }
         } else
             view.layout_no_favorites.visibility = View.GONE
 
