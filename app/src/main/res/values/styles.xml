@@ -6,6 +6,7 @@
         <item name="materialCardViewStyle">@style/MyCardStyle</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
         <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="MyCardStyle" parent="Widget.MaterialComponents.CardView">
