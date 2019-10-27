@@ -32,6 +32,6 @@
 
     <fragment
         android:id="@+id/navigation_details"
-        android:name="com.paktalin.beerapp.ui.DetailsFragment"
+        android:name="com.paktalin.beerapp.ui.beer_details.DetailsFragment"
         tools:layout="@layout/fragment_detais" />
 </navigation>

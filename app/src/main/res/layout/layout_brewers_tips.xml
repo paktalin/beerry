@@ -38,7 +38,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:text="Play around with the fermentation temperature to get the best flavour profile from the individual yeasts."
         android:textColor="@android:color/secondary_text_light"
         android:visibility="gone" />
 

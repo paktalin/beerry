@@ -1,4 +1,4 @@
-package com.paktalin.beerapp.ui
+package com.paktalin.beerapp.ui.beer_details
 
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -12,6 +12,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.paktalin.beerapp.*
+import com.paktalin.beerapp.ui.KEY_BEER
+import com.paktalin.beerapp.ui.format
+import com.paktalin.beerapp.ui.formatAbv
+import com.paktalin.beerapp.ui.formatUnits
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detais.view.*
 import kotlinx.android.synthetic.main.layout_brewers_tips.view.*
@@ -64,6 +68,18 @@ class DetailsFragment : Fragment() {
         tv_attenuation_value.text = beer.attenuation?.format() ?: unspecified
         tv_volume_value.text = beer.volume?.format()?.let { "$it${beer.volumeUnit?.formatUnits().orEmpty() }" } ?: unspecified
         tv_boil_volume_value.text = beer.boilVolume?.format()?.let { "$it${beer.boilVolumeUnit?.formatUnits().orEmpty() }" } ?: unspecified
+
+        tv_description.text = beer.description
+        brewers_tips_expanded.text = beer.brewersTips
+
+        if (beer.tagline != null)
+            tv_tagline.text = beer.tagline?.trim('.')
+        else quote_left.visibility = View.INVISIBLE
+
+        beer.foodPairings?.let { foodPairings ->
+            food_pairing_expanded.adapter = FoodPairingsAdapter(foodPairings)
+            food_pairing_expanded.adapter?.notifyDataSetChanged()
+        }
     }
 
     private fun View.setUpExpandButtons() {

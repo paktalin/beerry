@@ -7,9 +7,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
-import kotlinx.android.synthetic.main.item_layout.view.*
+import kotlinx.android.synthetic.main.item_beer.view.*
 
 class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val tvName: MaterialTextView = itemView.tv_beer_name

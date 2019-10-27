@@ -21,6 +21,10 @@ const val KEY_VOLUME = "volume"
 const val KEY_BOIL_VOLUME = "boil_volume"
 const val KEY_UNIT = "value"
 const val KEY_VALUE = "unit"
+const val KEY_TAGLINE = "tagline"
+const val KEY_DESCRIPTION = "description"
+const val KEY_BREWERS_TIPS = "brewers_tips"
+const val KEY_FOOD_PAIRINGS = "food_pairing"
 
 class Beer constructor(val id: Long,
                        val name: String,
@@ -37,7 +41,12 @@ class Beer constructor(val id: Long,
                        volume: Double?,
                        val volumeUnit: String?,
                        boilVolume: Double?,
-                       val boilVolumeUnit: String?): Serializable {
+                       val boilVolumeUnit: String?,
+                       val tagline: String?,
+                       val description: String?,
+                       val brewersTips: String?,
+                       pairingsArray: JSONArray?
+): Serializable {
 
     var abv: Double?
     var ibu: Double?
@@ -49,6 +58,7 @@ class Beer constructor(val id: Long,
     var attenuation: Double?
     var volume: Double?
     var boilVolume: Double?
+    var foodPairings: MutableList<String>? = null
 
     init {
         this.abv = abv?.nonNan()
@@ -61,10 +71,22 @@ class Beer constructor(val id: Long,
         this.attenuation = attenuation?.nonNan()
         this.volume = volume?.nonNan()
         this.boilVolume = boilVolume?.nonNan()
+        unwrapFoodPairings(pairingsArray)
     }
 
     private fun Double.nonNan(): Double? { return if(isNaN()) null else this }
 
+
+    private fun unwrapFoodPairings(pairingsArray: JSONArray?) {
+        val foodPairingsLength = pairingsArray?.length()
+        if (foodPairingsLength != null && foodPairingsLength != 0) {
+            this.foodPairings = mutableListOf()
+            for (i in 0 until foodPairingsLength) {
+                val pairing = pairingsArray.optString(i)
+                pairing?.let { this.foodPairings!!.add(it) }
+            }
+        }
+    }
 
     var isFavorite: Boolean = false
     var colorSet: BeerColorSet? = null
@@ -85,7 +107,11 @@ class Beer constructor(val id: Long,
         jsonObject.optJSONObject(KEY_VOLUME)?.optDouble(KEY_VALUE),
         jsonObject.optJSONObject(KEY_VOLUME)?.optString(KEY_UNIT),
         jsonObject.optJSONObject(KEY_BOIL_VOLUME)?.optDouble(KEY_VALUE),
-        jsonObject.optJSONObject(KEY_BOIL_VOLUME)?.optString(KEY_UNIT)
+        jsonObject.optJSONObject(KEY_BOIL_VOLUME)?.optString(KEY_UNIT),
+        jsonObject.optString(KEY_TAGLINE),
+        jsonObject.optString(KEY_DESCRIPTION),
+        jsonObject.optString(KEY_BREWERS_TIPS),
+        jsonObject.optJSONArray(KEY_FOOD_PAIRINGS)
     )
 
     fun toJson(): JSONObject {
@@ -105,6 +131,9 @@ class Beer constructor(val id: Long,
             .put(KEY_VOLUME, volume)
             .put(KEY_VOLUME, JSONObject().put(KEY_VALUE, volume).put(KEY_UNIT, volumeUnit))
             .put(KEY_BOIL_VOLUME, JSONObject().put(KEY_VALUE, boilVolume).put(KEY_UNIT, boilVolumeUnit))
+            .put(KEY_TAGLINE, tagline)
+            .put(KEY_DESCRIPTION, description)
+            .put(KEY_BREWERS_TIPS, brewersTips)
     }
 
     companion object {

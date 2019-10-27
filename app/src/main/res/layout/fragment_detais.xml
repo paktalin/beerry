@@ -23,8 +23,7 @@
             app:expandedTitleGravity="center_vertical|end"
             app:expandedTitleMarginStart="152dp"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarLayoutExpandedTextStyle"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="Berliner Weisse Vith Yuzu - B-Sides">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -64,13 +63,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
+                    android:scaleType="center"
                     android:src="@drawable/add_to_favorite"
                     android:transitionName="@string/favorite_transition_name"
                     app:backgroundTint="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="@+id/view_color"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view_color"
-                    android:scaleType="center"
                     app:tint="@color/add_to_favorite_fab" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -92,6 +91,7 @@
         android:layout_height="wrap_content"
         android:fillViewport="true"
         android:fitsSystemWindows="false"
+        android:paddingBottom="32dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -106,17 +106,16 @@
                 android:layout_marginStart="16dp"
                 android:src="@drawable/ic_format_quote_24px"
                 android:tint="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_beer_tagline"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_tagline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_beer_tagline"
+                android:id="@+id/tv_tagline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="16dp"
-                android:text="Unleash the Yeast Series"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                 android:textColor="@android:color/secondary_text_light"
                 android:textSize="16sp"
@@ -124,18 +123,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_beer_description"
+                android:id="@+id/tv_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Our Unleash the Yeast series was an epic experiment into the differences in aroma and flavour provided by switching up your yeast. We brewed up a wort with a light caramel note and some toasty biscuit flavour, and hopped it with Amarillo and Centennial for a citrusy bitterness. Everything else is down to the yeast. Pilsner yeast ferments with no fruity esters or spicy phenols, although it can add a hint of butterscotch."
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="@android:color/secondary_text_light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_beer_tagline" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_tagline" />
 
             <include
                 android:id="@+id/layout_characteristics"
@@ -145,7 +143,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_beer_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
             <include
                 android:id="@+id/layout_food_pairing"

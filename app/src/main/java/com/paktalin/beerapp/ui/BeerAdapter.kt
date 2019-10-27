@@ -14,8 +14,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
-import com.paktalin.beerapp.formatAbv
-import com.paktalin.beerapp.format
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
@@ -34,7 +32,7 @@ open class BeerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_beer, parent, false)
         return RecyclerViewHolder(view); }
 
     override fun getItemCount(): Int {

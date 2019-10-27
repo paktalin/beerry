@@ -1,4 +1,4 @@
-package com.paktalin.beerapp
+package com.paktalin.beerapp.ui
 
 import java.text.DecimalFormat
 
