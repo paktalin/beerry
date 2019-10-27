@@ -81,10 +81,10 @@ class DetailsFragment : Fragment() {
         tv_ph_value.text = beer.ph?.format() ?: unspecified
         tv_attenuation_value.text = beer.attenuation?.format() ?: unspecified
         tv_volume_value.text =
-            beer.volume?.format()?.let { "$it${beer.volumeUnit?.formatUnits().orEmpty()}" }
+            beer.volume?.format()?.let { "$it ${beer.volumeUnit?.formatUnits().orEmpty()}" }
                 ?: unspecified
         tv_boil_volume_value.text =
-            beer.boilVolume?.format()?.let { "$it${beer.boilVolumeUnit?.formatUnits().orEmpty()}" }
+            beer.boilVolume?.format()?.let { "$it ${beer.boilVolumeUnit?.formatUnits().orEmpty()}" }
                 ?: unspecified
 
         tv_description.text = beer.description
