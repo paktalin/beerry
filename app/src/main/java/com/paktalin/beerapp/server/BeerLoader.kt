@@ -26,12 +26,14 @@ class BeerLoader(beerFilter: BeerFilter?) {
         }
     }
 
-    fun loadBeers(onSuccess: (MutableList<Beer>) -> Unit, favorites: MutableList<Beer>, page: Int = 1) {
+    fun loadBeers(onSuccess: (MutableList<Beer>) -> Unit, onFail: () -> Unit, favorites: MutableList<Beer>, page: Int = 1) {
         val request = JsonArrayRequest(beerListUrl(page),
             { onSuccess(Beer.beersFromJsonArray(it, favorites)) },
             {
                 val data = CacheApp.instance?.cache()?.get(beerListUrl(page))?.data
-                data?.let {
+                if (data == null) {
+                    onFail()
+                } else {
                     val beers = Beer.beersFromJsonArray(JSONArray(String(data)), favorites)
                     onSuccess(beers)
                 }

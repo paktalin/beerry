@@ -2,7 +2,6 @@ package com.paktalin.beerapp.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,10 @@ import com.paktalin.beerapp.R
 import com.paktalin.beerapp.getFavoriteBeers
 import com.paktalin.beerapp.server.BeerLoader
 import com.paktalin.beerapp.server.BeerLoader.Companion.BEER_PER_PAGE
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.layout_no_connection.view.*
+import kotlinx.android.synthetic.main.layout_no_matches.view.*
 
 private const val KEY_BEER_FILTER = "beer_filter"
 private const val KEY_IS_LAST_PAGE = "is_last_page"
@@ -75,13 +77,23 @@ class HomeFragment : Fragment() {
                 isLastPage = true
             if (newBeers.size == 0) {
                 view?.layout_no_matches?.visibility = View.VISIBLE
-                view?.button_filter_again?.setOnClickListener { showFilterDialog() }
+                layout_no_matches?.button_filter_again?.setOnClickListener { showFilterDialog() }
                 view?.recycler_view_all?.adapter?.notifyDataSetChanged()
                 return@loadBeers
             }
             view?.layout_no_matches?.visibility = View.GONE
             onBeerLoaded(newBeers, 0)
-        }, favoriteBeers)
+        }, {onRequestFail()}, favoriteBeers)
+    }
+
+    private fun onRequestFail() {
+        view?.progress?.visibility = View.GONE
+        view?.layout_no_connection?.visibility = View.VISIBLE
+        layout_no_connection?.button_back?.setOnClickListener {
+            view?.layout_no_connection?.visibility = View.GONE
+            beerFilter = null
+            reloadBeer()
+        }
     }
 
     private fun loadMoreBeer() {
@@ -91,6 +103,7 @@ class HomeFragment : Fragment() {
         val page = BeerLoader.nextPage(itemsCount)
         BeerLoader(beerFilter).loadBeers(
             { newBeers -> onBeerLoaded(newBeers, itemsCount) },
+            {onRequestFail()},
             favoriteBeers,
             page
         )

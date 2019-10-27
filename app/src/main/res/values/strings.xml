@@ -32,5 +32,9 @@
     <string name="unspecified">Unspecified</string>
     <string name="go_browse">Go browse</string>
     <string name="you_haven_t_added_any_beer_to_favorite">You haven\'t added any beer to favorite!</string>
+    <string name="find_your">Find your</string>
+    <string name="match">match</string>
+    <string name="button_back">Back</string>
+    <string name="there_is_no_internet_connection_only_basic_functionality_is_available">There is no internet connection. Only basic functionality is available.</string>
 
 </resources>
