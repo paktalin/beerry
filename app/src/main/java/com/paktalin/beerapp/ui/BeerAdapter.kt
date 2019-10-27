@@ -14,10 +14,11 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.paktalin.beerapp.Beer
 import com.paktalin.beerapp.R
+import com.paktalin.beerapp.formatAbv
+import com.paktalin.beerapp.format
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
-import java.text.DecimalFormat
 
 const val KEY_BEER = "beer"
 
@@ -45,8 +46,8 @@ open class BeerAdapter(
         with(holder) {
             progress.visibility = View.VISIBLE
             tvName.text = beer.name
-            setSpec(tvAbvTitle, tvAbv, beer.abv, "##.#'%'")
-            setSpec(tvIbuTitle, tvIbu, beer.ibu, "###")
+            setSpec(tvAbvTitle, tvAbv, beer.abv?.formatAbv())
+            setSpec(tvIbuTitle, tvIbu, beer.ibu?.format())
             setLayoutColor(this, beer)
             setImage(beer.imageUrl, holder)
             buttonFavorite.visibility = View.GONE
@@ -66,7 +67,7 @@ open class BeerAdapter(
         (context as AppCompatActivity).findNavController(R.id.nav_host_fragment).navigate(R.id.navigation_details, args, null, extras)
     }
 
-    private fun setImage(imageUrl: String, holder: RecyclerViewHolder) {
+    private fun setImage(imageUrl: String?, holder: RecyclerViewHolder) {
         Picasso.with(context)
             .load(imageUrl)
             .networkPolicy(NetworkPolicy.OFFLINE)
@@ -84,22 +85,18 @@ open class BeerAdapter(
             })
     }
 
-    private fun setSpec(tvTitle: TextView, tv: TextView, value: Double?, pattern: String) {
-        if (value == null || value.isNaN()) {
-            // remove text and its label
-            tv.text = null
-            tvTitle.visibility = View.GONE
-        } else {
-            tv.text = DecimalFormat(pattern).format(value)
-            tvTitle.visibility = View.VISIBLE
-        }
+    private fun setSpec(tvTitle: TextView, tv: TextView, string: String?) {
+        tv.text = string
+        tvTitle.visibility = if (string == null) View.GONE else View.VISIBLE
     }
 
     private fun setLayoutColor(holder: RecyclerViewHolder, beer: Beer) {
         val textColor: Int?
         val titleTextColor: Int?
         // if background is dark, set light text colors and higher contrast text color for labels
-        if (beer.ebc == null || beer.ebc.isNaN() || beer.ebc > 33.0) {
+
+        val ebc = beer.ebc
+        if (ebc == null || ebc > 33.0) {
             textColor = Color.WHITE
             titleTextColor = Color.BLACK
         } else {

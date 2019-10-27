@@ -27,5 +27,6 @@
     <string name="title_food_pairing">Food Pairing</string>
     <string name="title_brewers_tips">Brewers Tips</string>
     <string name="title_first_brewed">First Brewed</string>
+    <string name="unspecified">Unspecified</string>
 
 </resources>

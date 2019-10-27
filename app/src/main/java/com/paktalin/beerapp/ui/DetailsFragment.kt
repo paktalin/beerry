@@ -11,10 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.paktalin.beerapp.Beer
-import com.paktalin.beerapp.R
-import com.paktalin.beerapp.addToFavorite
-import com.paktalin.beerapp.removeFromFavorite
+import com.paktalin.beerapp.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_detais.view.*
 import kotlinx.android.synthetic.main.layout_brewers_tips.view.*
@@ -43,23 +40,37 @@ class DetailsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_detais, container, false)
         with(view) {
             (activity as AppCompatActivity).setSupportActionBar(toolbar as Toolbar)
-            collapsing_toolbar.title = beer.name
             Picasso.with(context).load(beer.imageUrl).into(image_beer)
-
-            setUpColors(view)
             setUpButtonFavorite(button_add_to_favorite)
-            setUpExpandButtons(view)
+
+            setUpColors()
+            setUpExpandButtons()
+            setUpBeerTextData()
         }
         return view
     }
 
-    private fun setUpExpandButtons(view: View) {
-        with(view) {
-            button_expand_characteristics.isSelected = true
-            button_expand_characteristics.setExpandableButton(characteristics_expanded)
-            button_expand_brewers_tips.setExpandableButton(brewers_tips_expanded)
-            button_expand_food_pairing.setExpandableButton(food_pairing_expanded)
-        }
+    private fun View.setUpBeerTextData() {
+        collapsing_toolbar.title = beer.name
+        val unspecified = context.resources.getString(R.string.unspecified)
+        tv_abv_value.text = beer.abv?.formatAbv() ?: unspecified
+        tv_ibu_value.text = beer.ibu?.format() ?: unspecified
+        tv_ebc_value.text = beer.ebc?.format() ?: unspecified
+        tv_first_brewed.text = beer.firstBrewed ?: unspecified
+        tv_fg_value.text = beer.fg?.format() ?: unspecified
+        tv_og_value.text = beer.og?.format() ?: unspecified
+        tv_srm_value.text = beer.srm?.format() ?: unspecified
+        tv_ph_value.text = beer.ph?.format() ?: unspecified
+        tv_attenuation_value.text = beer.attenuation?.format() ?: unspecified
+        tv_volume_value.text = beer.volume?.format()?.let { "$it${beer.volumeUnit?.formatUnits().orEmpty() }" } ?: unspecified
+        tv_boil_volume_value.text = beer.boilVolume?.format()?.let { "$it${beer.boilVolumeUnit?.formatUnits().orEmpty() }" } ?: unspecified
+    }
+
+    private fun View.setUpExpandButtons() {
+        button_expand_characteristics.isSelected = true
+        button_expand_characteristics.setExpandableButton(characteristics_expanded)
+        button_expand_brewers_tips.setExpandableButton(brewers_tips_expanded)
+        button_expand_food_pairing.setExpandableButton(food_pairing_expanded)
     }
 
     private fun ImageButton.setExpandableButton(expandableView: View) {
@@ -70,12 +81,12 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun setUpColors(view: View) {
+    private fun View.setUpColors() {
         beer.colorSet?.apply {
-            view.collapsing_toolbar.setExpandedTitleTextColor(ColorStateList.valueOf(textColor))
-            view.collapsing_toolbar.setCollapsedTitleTextColor(textColor)
-            view.view_color?.setBackgroundColor(backgroundColor)
-            view.collapsing_toolbar.setContentScrimColor(backgroundColor)
+            collapsing_toolbar.setExpandedTitleTextColor(ColorStateList.valueOf(textColor))
+            collapsing_toolbar.setCollapsedTitleTextColor(textColor)
+            view_color?.setBackgroundColor(backgroundColor)
+            collapsing_toolbar.setContentScrimColor(backgroundColor)
         }
     }
 

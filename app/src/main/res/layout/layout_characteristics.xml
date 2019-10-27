@@ -57,7 +57,6 @@
                 android:id="@+id/tv_first_brewed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1012"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -86,7 +85,6 @@
                 android:id="@+id/tv_abv_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1012"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -114,7 +112,6 @@
                 android:id="@+id/tv_ibu_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1012"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -143,7 +140,6 @@
                 android:id="@+id/tv_ebc_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1012"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -171,7 +167,6 @@
                 android:id="@+id/tv_fg_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1012"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -199,7 +194,6 @@
                 android:id="@+id/tv_og_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1060"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -227,7 +221,6 @@
                 android:id="@+id/tv_srm_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="15"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -255,7 +248,6 @@
                 android:id="@+id/tv_ph_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.4"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -283,7 +275,6 @@
                 android:id="@+id/tv_attenuation_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="80"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -311,7 +302,6 @@
                 android:id="@+id/tv_volume_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="80"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
@@ -339,7 +329,6 @@
                 android:id="@+id/tv_boil_volume_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="80"
                 android:textColor="@android:color/secondary_text_light" />
 
         </LinearLayout>
