@@ -36,5 +36,7 @@
     <string name="match">match</string>
     <string name="button_back">Back</string>
     <string name="there_is_no_internet_connection_only_basic_functionality_is_available">There is no internet connection. Only basic functionality is available.</string>
+    <string name="you_love">You love</string>
+    <string name="it">it</string>
 
 </resources>
